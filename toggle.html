@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .new_project_wrapper {
+      display: flex;
+      justify-content: center;
+    }
+    .newProjectModal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 1200px;
+      height: 800px;
+      padding: 40px 50px;
+      border: 3px solid black;
+      border-radius: 30px;
+      position: relative;
+    }
+    .npTitle {
+      margin-right: auto;
+      margin: 0 auto 0 80px;
+      font-weight: 500;
+      font-size: 55px;
+    }
+    .npComment {
+      margin: 30px auto 0 80px;
+      font-weight: 500;
+      color: #737373;
+    }
+    .projectInput {
+      display: flex;
+      flex-direction: column;
+      margin-top: 30px;
+    }
+    #projectName {
+      margin-bottom: 30px;
+    }
+    .pjInput {
+      width: 1000px;
+      height: 40px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    .projectInputLabel {
+      margin-bottom: 10px;
+    }
+
+    .new_project_buttonBox {
+      position: absolute;
+      right: 50px;
+      bottom: 30px;
+      display: flex;
+      gap: 20px;
+    }
+    .modalBtn {
+      width: 100px;
+      height: 40px;
+      font-size: 18px;
+      border-radius: 10px;
+    }
+    .addMemberLabel {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .addMemberBtn {
+      margin-left: auto;
+      width: 130px;
+      height: 50px;
+      border-radius: 10px;
+      margin-bottom: 5px;
+    }
+    .memberBox {
+      width: 1000px;
+      padding: 15px;
+      border: 3px solid black;
+      border-radius: 10px;
+      height: 150px;
+    }
+  </style>
+  <body>
+    <div class="new_project_wrapper">
+      <div class="newProjectModal">
+        <h1 class="npTitle">프로젝트 생성하기</h1>
+        <h3 class="npComment">
+          새로운 프로젝트를 위한 첫걸음을 내딛어보세요! <br />아래 입력란에
+          프로젝트 이름과 팀원을 추가하고, 새로운 프로젝트를 시작해보세요
+        </h3>
+
+        <div class="projectInput">
+          <label for="projectName" class="projectInputLabel">프로젝트명</label>
+          <input
+            type="text"
+            id="projectName"
+            class="pjInput"
+            placeholder="제목을 입력하세요"
+          />
+
+          <label for="projectDescription" class="projectInputLabel"
+            >프로젝트 설명(선택사항)</label
+          >
+          <input
+            type="text"
+            id="projectDescription"
+            class="pjInput"
+            placeholder="설명을 입력하세요"
+          />
+        </div>
+        <div class="addMember">
+          <div class="addMemberLabel">
+            <h3 class="addMemberTitle">팀원 추가하기</h3>
+            <button class="addMemberBtn">팀원 추가</button>
+          </div>
+          <div class="memberBox">여기에 추가됩니다</div>
+        </div>
+        <div class="newProjectBtnBox">
+          <button class="cancel newProjectModalBtn">취소</button>
+          <button class="confirm newProjectModalBtn">생성</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+/*  라이트모드 */
+:root {
+  --text-color: #222222;
+  --body-color: #ececec;
+  --light-border: #cccccc;
+  --light-text-black: #222222;
+  --light-text-darkGray: #737373;
+  --light-bg-color: #ffffff;
+
+  /* 다크모드 */
+  --dm-bg-color: #222222;
+  --dm-text-color: #ffffff;
+  /* 라이트,다크모드 토글 색상 */
+  --toggleBar-color: #cccccc;
+  /* 색상 */
+  --color-blue: #0064ff;
+  --color-rightGray: #cccccc;
+  --color-darkGray: #929292;
+
+  /* 추가 color */
+  --white: #fafafa;
+  --text-color: #222;
+  --btnText-color: #cccccc;
+  --rightGray: #888;
+  --darkGray: #ccc;
+  --blue1: #0064ff;
+  --blue2: #3389ff;
+  --blue3: rgba(153, 200, 255, 0.6);
+  --blue4: #cce4ff;
+  --error: #ef2b2a;
+  --notification: #efbb00;
+  --success: #00c400;
+
+  /* 추가 칸반보드용*/
+  --bg-yellow: rgba(250, 216, 158, 0.5);
+  --point-yellow: #ffb638;
+  --bg-blue: rgba(197, 225, 255, 0.5);
+  --point-blue: #77b8ff;
+  --bg-green: rgba(194, 235, 207, 0.6);
+  --point-green: #7aea9d;
+  --bg-red: rgba(255, 173, 173, 0.5);
+  --point-red: #ff8c8c;
+
+  /* 폰트 */
+  /* 추가 size */
+  font-size: 16px; /* 기본 사이즈*/
+  --h1: 3.13rem; /* 50px */
+  --h2: 2.5rem; /* 40px */
+  --h3: 2rem; /* 32px */
+  --h4: 1.75rem; /* 28px */
+  --h5: 1.25rem; /* 20px */
+  --h6: 1.13rem; /* 18px */
+
+  /* 레이아웃 */
+  --sidebar-width: 200px;
+  --ms-width: 40px;
+  --sidebar-height: 100vh;
+
+  /* 여백 */
+}

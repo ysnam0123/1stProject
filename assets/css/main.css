@@ -1,0 +1,107 @@
+body {
+	height: 100%;
+	background-color: #ececec;
+	display: flex;
+	flex-direction: row;
+	gap: 22px;
+	height: 100vh;
+}
+/* 사이드바 전체 몸통 */
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 200px;
+
+	border-radius: 10px;
+	background-color: #ffffff;
+	padding: 20px;
+}
+/* 사이드바 로고 */
+.sidebar_logo {
+	width: 150px;
+	margin-top: 50px;
+	margin-bottom: 80px;
+}
+/* 사이드바 토글 */
+.sb_toggle {
+	margin-left: auto;
+	width: 22px;
+	height: 20px;
+	cursor: pointer;
+}
+.sb_toggle:hover {
+	color: #0064ff;
+}
+/* 칸반보드,캘린더,문서,help */
+.sidebar_icon {
+	cursor: pointer;
+	color: #cccccc;
+}
+.sidebar_btn {
+	width: 50px;
+	height: 50px;
+}
+.btn_text {
+	color: #cccccc;
+	font-weight: 800;
+}
+.iconBox {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 80px;
+}
+/* 마우스를 올렸을 때 */
+.iconBox:hover .sidebar_icon {
+	color: #0064ff;
+}
+.iconBox:hover .btn_text {
+	color: #0064ff;
+}
+
+/* container */
+.container {
+	border-radius: 10px;
+	width: 100%;
+	background-color: #ffffff;
+}
+.profile_icon {
+	position: absolute;
+	cursor: pointer;
+	right: 20px;
+	top: 10px;
+}
+/* 프로젝트가 없어요 화면 */
+.notYet {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 400px;
+}
+.notYetText {
+	font-size: 50px;
+	font-weight: 700;
+}
+
+.makeProjectBtn {
+	margin-top: 30px;
+	background-color: #0064ff;
+	color: white;
+	padding: 20px 50px;
+	border-radius: 10px;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	transition: all 0.1s ease;
+	width: 400px;
+}
+.makeProjectBtn:hover {
+	transform: scale(1.05);
+}
+.makeProjectBtn:active {
+	transform: translateY(5px);
+	transform: scale(0.97);
+	opacity: 0.7;
+}

@@ -1,0 +1,77 @@
+body {
+	height: 100%;
+	background-color: #ececec;
+	display: flex;
+	flex-direction: row;
+	gap: 22px;
+	height: 100vh;
+}
+/* 미니 사이드바 */
+/* 미니 사이드바 전체 몸통 */
+.ms {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 40px;
+	border-radius: 10px;
+	background-color: #ffffff;
+	padding: 20px;
+}
+/* 사이드바 로고 */
+.ms_logo {
+	width: 40px;
+	margin-top: 50px;
+	margin-bottom: 100px;
+}
+/* 사이드바 토글 */
+.ms_toggle {
+	position: absolute;
+	right: 5px;
+	top: 10px;
+	margin-left: auto;
+	width: 35px;
+	height: 30px;
+	cursor: pointer;
+	color: #cccccc;
+}
+.ms_toggle:hover {
+	color: #0064ff;
+}
+/* 칸반보드,캘린더,문서,help */
+.ms_icon {
+	cursor: pointer;
+	color: #cccccc;
+}
+.ms_btn {
+	width: 35px;
+	height: 35px;
+}
+.btn_text {
+	color: #cccccc;
+	font-weight: 800;
+}
+.ms_iconBox {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 80px;
+}
+/* 마우스를 올렸을 때 */
+.ms_iconBox:hover .ms_icon {
+	color: #0064ff;
+}
+
+/* container */
+.container {
+	border-radius: 10px;
+	width: 100%;
+	background-color: #ffffff;
+}
+.profile_icon {
+	position: absolute;
+	cursor: pointer;
+	right: 20px;
+	top: 10px;
+}
