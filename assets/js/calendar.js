@@ -24,6 +24,8 @@ rightBtn.addEventListener('click',(e)=>{
   createCalendar(currentYear,currentMonth);
 });
 
+createCalendar(currentYear,currentMonth);
+
 function createCalendar(year, month){
   const calendar = document.getElementById('calendarWrapper');
   const calendarInfo = document.getElementById("calendarInfo");
@@ -64,7 +66,7 @@ function createCalendar(year, month){
   for(let i = 1; i <= lastDate; i++){
     const dayDiv = document.createElement('div');
     dayDiv.textContent = i;
-    dayDiv.classList.add('daysItem');
+    dayDiv.classList.add('daysItem','selectItem');
     daysContainer.appendChild(dayDiv);
   }
 
@@ -77,6 +79,19 @@ function createCalendar(year, month){
   calendar.appendChild(daysContainer);
 }
 
+const selectItems = document.querySelectorAll('.selectItem');
+const xBox = document.querySelector('.xBox');
 
+selectItems.forEach(item=>{
+  item.addEventListener('click',(e)=>{
+    e.preventDefault();
+    document.querySelector('.shadow').classList.remove('hide');
+    document.querySelector('.modal').classList.remove('hide');
+  });
+});
 
-createCalendar(currentYear,currentMonth);
+xBox.addEventListener('click',()=>{
+  document.querySelector('.shadow').classList.add('hide');
+  document.querySelector('.modal').classList.add('hide');
+})
+

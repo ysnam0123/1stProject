@@ -8,13 +8,22 @@
   <title>달력</title>
 </head>
 <body>
-  <div id="calendarContainer" class="calendarContainer">
-    <div id="calendarController">
-      <span id="leftBtn">&lt;</span>
-      <span id="calendarInfo"></span>
-      <span id="rightBtn">&gt;</span>
+  <div class="container">
+    <div id="calendarContainer" class="calendarContainer">
+      <div id="calendarController">
+        <span id="leftBtn">&lt;</span>
+        <span id="calendarInfo"></span>
+        <span id="rightBtn">&gt;</span>
+      </div>
+      <div id="calendarWrapper" class="calendarWrapper"></div>
     </div>
-    <div id="calendarWrapper" class="calendarWrapper"></div>
+    <div class="shadow hide"></div>
+    <div class="modal hide">
+      <span class="xBox">x</span>
+      <form>
+        <input type="text" placeholder="프로젝트 제목을 입력하세요">
+      </form>
+    </div>
   </div>
 </body>
 </html>
