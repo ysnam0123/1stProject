@@ -1,0 +1,287 @@
+@font-face {
+    font-family: 'Cafe24Meongi-B-v1.0';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-B-v1.0.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    margin-top: 50px;
+    margin-left: -30px;
+    margin-bottom: 20px;
+    background-color: transparent;
+}
+
+.project-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #fff;
+    width: 870px;
+    padding: 25px 30px;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px #cfcfcf;
+}
+
+.dropdown-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+#project-name {
+    font-weight: bold;
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.add-board-btn {
+    background-color: #e7f0ff;
+    border: none;
+    color: #007bff;
+    width: 120px;
+    height: 50px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right:100px;
+}
+
+.columns {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.column {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    min-height: 200px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.column-title {
+    display: flex;
+    justify-content: space-between; /* 변경 */
+    background: none;
+    border: none;
+    font-size: 18px;
+    margin-right: 0;
+    padding: 0;
+}
+
+.column-title button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-right: 7px;
+}
+
+.column-title h3 {
+    font-size: 1em;
+    margin: 0;
+    font-weight: 700;
+}
+
+.column-title > div {  
+    display: flex;
+}
+
+.tasks {
+    min-height: 100px;
+    margin: 15px 0;
+}
+
+.task {
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    cursor: grab;
+    word-break: break-word;
+}
+
+.task:last-child {
+    margin-bottom: 0;
+}
+
+.task.dragging {
+    opacity: 0.5;
+    border: 2px dashed #777;
+}
+
+.task-input {
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    word-break: break-word;
+    outline: none; 
+}
+
+.task-input:empty::before {
+    content: attr(data-placeholder); 
+    color: #ccc; 
+}
+
+.add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.add-button:hover {
+    background-color: #000000;
+}
+
+.confirm-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm-modal[open] {
+    display: flex;
+}
+
+.confirm-modal form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.confirm-modal .preview {
+    margin-bottom: 15px;
+}
+
+.confirm-modal button {
+    margin: 0 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}
+
+.confirm-modal #confirm {
+    background-color: #d32f2f;
+}
+
+.confirm-modal #cancel {
+    background-color: #777;
+}
+
+
+
+button[data-delete] i {
+    font-size: 0.9em; 
+}
+
+.task {
+    position: relative; 
+    padding-left: 2.2em;
+}
+
+.task::before {
+    content: "O";
+    font-family: 'Cafe24Meongi-B-v1.0';
+    font-size: 1.7em; 
+    position: absolute; 
+    left: 10px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+}
+
+.delete-task-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+}
+
+.task:hover .delete-task-btn {
+    opacity: 1; 
+}
+
+.delete-task-btn:hover {
+    color: #333;
+}
+
+
+
+
+
+
+
+
+
+.test-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.test-modal[open] {
+    display: flex;
+}
+
+.test-modal form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.test-modal button {
+    margin: 0 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}
+
+.test-modal #cancel {
+    background-color: #777;
+}

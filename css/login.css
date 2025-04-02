@@ -1,0 +1,119 @@
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100vh;
+}
+.logo {
+	margin-bottom: 60px;
+	user-select: none;
+}
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 10%;
+}
+.inputBox {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+}
+.inputText {
+	width: 350px;
+	height: 30px;
+	padding: 27px 15px 8px;
+	font-size: 16px;
+	font-weight: 700;
+	border-radius: 10px;
+	border: #cccccc 2px solid;
+}
+
+.inputText::placeholder {
+	color: #cccccc;
+}
+
+.inputIdBox,
+.inputPwBox {
+	position: relative;
+}
+.idLabel,
+.passwordLabel {
+	position: absolute;
+	top: 30px;
+	left: 20px;
+	color: #cccccc;
+	user-select: none;
+	transition: transform 0.3s ease;
+}
+
+.inputText:focus + .inputLabel,
+.inputText:not(:placeholder-shown) + .inputLabel {
+	transform: translateY(-10px);
+
+	font-size: 12px;
+	color: #0064ff;
+}
+.box {
+	margin-top: 15px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 10px;
+	color: #929292;
+	font-weight: 600;
+	gap: 100px;
+	user-select: none;
+}
+.rememberMeBox {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+.findBox {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+}
+.btnBox {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.submitBtn {
+	cursor: pointer;
+	width: 370px;
+	height: 50px;
+	border: none;
+	border-radius: 10px;
+	font-size: 16px;  /* 18px*/
+	font-weight: 700;
+	user-select: none;
+	transition: transform 0.2 ease;
+}
+
+.signinBtn {
+	background-color: #0064ff;
+	color: white;
+}
+.signupBtn {
+	background-color: #cccccc;
+	color: white;
+}
+
+#rememberMe {
+	border-radius: 10px;
+}
+.submitBtn:active {
+	transform: scale(0.98);
+	opacity: 0.7;
+}
+
+/* .rememberMe, 
+.findId,
+.findPw {
+	font-size: 12px;
+} */

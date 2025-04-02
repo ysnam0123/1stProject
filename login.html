@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>로그인하세요</title>
+	</head>
+	<link rel="stylesheet" href="./css/login.css" />
+	<link rel="stylesheet" href="./css/reset.css" />
+	<link rel="website icon" type="svg" href="./assets/images/ms_logo.svg" />
+	<body>
+		<div class="container">
+			<img src="./assets/images/logo.png" alt="logo" class="logo" />
+			<div class="inputBox">
+				<div class="inputIdBox">
+					<input type="text" class="inputText" id="inputId" placeholder="" />
+					<label for="inputId" class="idLabel inputLabel">아이디 입력</label>
+				</div>
+				<div class="inputPwBox">
+					<input
+						type="password"
+						class="inputText"
+						id="inputPassword"
+						placeholder=""
+					/>
+					<label for="inputPassword" class="passwordLabel inputLabel"
+						>비밀번호 입력</label
+					>
+				</div>
+			</div>
+			<div class="box">
+				<div class="rememberMeBox">
+					<input type="checkbox" id="rememberMe" />
+					<label for="rememberMe" class="rememberMe">아이디 저장</label>
+				</div>
+				<div class="findBox">
+					<span class="find findId">아이디 찾기</span>
+					<span class="find findPw">비밀번호 찾기</span>
+				</div>
+			</div>
+			<div class="btnBox">
+				<button class="signinBtn submitBtn">로그인</button>
+				<button class="signupBtn submitBtn">회원가입</button>
+			</div>
+		</div>
+	</body>
+</html>
