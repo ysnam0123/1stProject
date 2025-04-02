@@ -30,16 +30,19 @@ function createCalendar(year, month){
   const calendar = document.getElementById('calendarWrapper');
   const calendarInfo = document.getElementById("calendarInfo");
   calendar.innerHTML = '';
+  let setMonth = '';
+  let dateInfo = 0;
 
   if(month + 1 < 10){
     calendarInfo.textContent = `${year}.0${month + 1}`;
+    setMonth = `0${month + 1}`;
   } else {
     calendarInfo.textContent = `${year}.${month + 1}`;
+    setMonth = `${month + 1}`;
   }
   
   const date = new Date(year,month,1);
   const lastDay = new Date(year,month + 1,0).getDay();
-  console.log(lastDay)
   const lastDate = new Date(year,month + 1,0).getDate();
   const firstDay = date.getDay();
 
@@ -72,8 +75,15 @@ function createCalendar(year, month){
     </div>
     <div class="planList"></div>
     `;
+    const planeListEl = dayDiv.querySelector(".planList");
     dayDiv.classList.add('daysItem','selectItem');
+    const date = dayDiv.querySelector('span').textContent;
+    dayDiv.dataset.dateInfo = `${year}${setMonth}${date}`;
+    storageEl(dayDiv.dataset.dateInfo,planeListEl);
     daysContainer.appendChild(dayDiv);
+  }
+  function storageEl(dateInfo,parantEl){
+    //getLoacalstorage
   }
 
   for(let i = lastDay; i < weekDays.length-1; i++){
@@ -86,7 +96,8 @@ function createCalendar(year, month){
   
   const selectItems = document.querySelectorAll('.selectItem');
   const addPlanBtns = document.querySelectorAll('.selectItem .addPlanBtn');
-  const xBox = document.querySelector('.xBox');
+  const saveBtn = document.querySelector('.saveBtn');
+  const cancelBtn = document.querySelector('.cancelBtn');
   
   selectItems.forEach(item=>{
     item.addEventListener('mouseenter',()=>{
@@ -100,18 +111,61 @@ function createCalendar(year, month){
     });
   });
 
-  addPlanBtns.forEach(Btn=>{
-    Btn.addEventListener('click',(e)=>{
+  addPlanBtns.forEach(btn=>{
+    btn.addEventListener('click',(e)=>{
       e.preventDefault();
+      const parentEl = e.target.parentElement.parentElement;
+      dateInfo = parentEl.dataset.dateInfo;
       document.querySelector('.shadow').classList.remove('hide');
       document.querySelector('.modal').classList.remove('hide');
     });
   });
+  saveBtn.addEventListener('click',(e)=>{
+    e.preventDefault();
+    const title = document.getElementById("title").value;
+    const startday = document.getElementById("startday").value.split('-').join('');
+    const endday = document.getElementById("endday").value.split('-').join('');
+    const color = document.getElementById("colorInput").value;
+
+    setStorage(dateInfo,title,startday,endday,color);
+    
+    clearValue();
+
+    document.querySelector('.shadow').classList.add('hide');
+    document.querySelector('.modal').classList.add('hide');
+    // createCalendar();
+  });
+
   
-  xBox.addEventListener('click',()=>{
+  function clearValue(){
+    document.getElementById("title").value = '';
+    document.getElementById("startday").value = '';
+    document.getElementById("endday").value = '';
+    document.getElementById("colorInput").selectedIndex = 0;
+  }
+
+  function setStorage(dataInfo,title,startday,endday,color){
+    const obj = {
+      'title' : title,
+      'startday' : startday,
+      'endday' : endday,
+      'color' : color,
+    }
+    const temp = JSON.parse(localStorage.getItem(dataInfo)) || [];
+    temp.push({...obj});
+    //시작일~마감일까지 정보 로컬 스토리지에 추가
+    for(let i = +temp[temp.length-1].startday;i <= +temp[temp.length-1].endday;i++){
+      localStorage.setItem(`${i}`,JSON.stringify(temp));
+    }
+  }
+
+  cancelBtn.addEventListener('click',(e)=>{
+    e.preventDefault();
+    clearValue();
     document.querySelector('.shadow').classList.add('hide');
     document.querySelector('.modal').classList.add('hide');
   });
 }
 
 
+// 인풋 값을 로컬 스토리지에 저장 -> calendar 함수 실행 -> daydiv.dataset으로 로컬 스토리지 키값에 접근-> []안의 객체에 접근 title color값 구조분해 배열의 길이만큼 daydiv안에 div 넣고 스타일링
