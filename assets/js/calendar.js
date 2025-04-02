@@ -1,0 +1,74 @@
+const today = new Date();
+let currentYear = today.getFullYear();
+let currentMonth = today.getMonth();
+const leftBtn = document.getElementById('leftBtn');
+const rightBtn = document.getElementById('rightBtn');
+
+leftBtn.addEventListener('click',(e)=>{
+  e.preventDefault();
+  currentMonth--;
+  if(currentMonth < 0){
+    currentMonth = 11;
+    currentYear = currentYear - 1;
+  }
+  createCalendar(currentYear,currentMonth);
+});
+
+rightBtn.addEventListener('click',(e)=>{
+  e.preventDefault();
+  currentMonth++;
+  if(currentMonth > 11){
+    currentMonth = 0;
+    currentYear = currentYear + 1;
+  }
+  createCalendar(currentYear,currentMonth);
+});
+
+function createCalendar(year, month){
+  const calendar = document.getElementById('calendarWrapper');
+  const calendarInfo = document.getElementById("calendarInfo");
+  calendar.innerHTML = '';
+
+  if(month + 1 < 10){
+    calendarInfo.textContent = `${year}.0${month + 1}월`;
+  } else {
+    calendarInfo.textContent = `${year}.${month + 1}월`;
+  }
+  
+  const date = new Date(year,month,1);
+  const lastDay = new Date(year,month + 1,0).getDate();
+  const firstDay = date.getDay();
+
+  const weekDays = ['일','월','화','수','목','금','토'];
+  const weekDaysContainer = document.createElement('div');
+  weekDaysContainer.classList.add('weekDays');
+  weekDays.forEach((day)=>{
+    const dayDiv = document.createElement('div');
+    dayDiv.textContent = day;
+    weekDaysContainer.appendChild(dayDiv);
+  });
+
+  calendar.appendChild(weekDaysContainer);
+
+  const daysContainer = document.createElement('div');
+  daysContainer.classList.add('days');
+
+  for(let i = 0; i < firstDay; i++){
+    const emptyDiv = document.createElement('div');
+    // emptyDiv.classList.add('daysItem');
+    daysContainer.appendChild(emptyDiv);
+  }
+  
+  for(let i = 1; i <= lastDay; i++){
+    const dayDiv = document.createElement('div');
+    dayDiv.textContent = i;
+    dayDiv.classList.add('daysItem');
+    daysContainer.appendChild(dayDiv);
+  }
+
+  calendar.appendChild(daysContainer);
+}
+
+
+
+createCalendar(currentYear,currentMonth);
