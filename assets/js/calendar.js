@@ -30,13 +30,15 @@ function createCalendar(year, month){
   calendar.innerHTML = '';
 
   if(month + 1 < 10){
-    calendarInfo.textContent = `${year}.0${month + 1}월`;
+    calendarInfo.textContent = `${year}.0${month + 1}`;
   } else {
-    calendarInfo.textContent = `${year}.${month + 1}월`;
+    calendarInfo.textContent = `${year}.${month + 1}`;
   }
   
   const date = new Date(year,month,1);
-  const lastDay = new Date(year,month + 1,0).getDate();
+  const lastDay = new Date(year,month + 1,0).getDay();
+  console.log(lastDay)
+  const lastDate = new Date(year,month + 1,0).getDate();
   const firstDay = date.getDay();
 
   const weekDays = ['일','월','화','수','목','금','토'];
@@ -55,15 +57,21 @@ function createCalendar(year, month){
 
   for(let i = 0; i < firstDay; i++){
     const emptyDiv = document.createElement('div');
-    // emptyDiv.classList.add('daysItem');
+    emptyDiv.classList.add('daysItem','emptyItem');
     daysContainer.appendChild(emptyDiv);
   }
   
-  for(let i = 1; i <= lastDay; i++){
+  for(let i = 1; i <= lastDate; i++){
     const dayDiv = document.createElement('div');
     dayDiv.textContent = i;
     dayDiv.classList.add('daysItem');
     daysContainer.appendChild(dayDiv);
+  }
+
+  for(let i = lastDay; i < weekDays.length-1; i++){
+    const emptyDiv = document.createElement('div');
+    emptyDiv.classList.add('daysItem','emptyItem');
+    daysContainer.appendChild(emptyDiv);
   }
 
   calendar.appendChild(daysContainer);
