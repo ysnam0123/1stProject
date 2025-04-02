@@ -65,7 +65,13 @@ function createCalendar(year, month){
   
   for(let i = 1; i <= lastDate; i++){
     const dayDiv = document.createElement('div');
-    dayDiv.textContent = i;
+    dayDiv.innerHTML = `
+    <div>
+    <span>${i}</span>
+    <button class="addPlanBtn hide">+</button>
+    </div>
+    <div class="planList"></div>
+    `;
     dayDiv.classList.add('daysItem','selectItem');
     daysContainer.appendChild(dayDiv);
   }
@@ -77,21 +83,35 @@ function createCalendar(year, month){
   }
 
   calendar.appendChild(daysContainer);
+  
+  const selectItems = document.querySelectorAll('.selectItem');
+  const addPlanBtns = document.querySelectorAll('.selectItem .addPlanBtn');
+  const xBox = document.querySelector('.xBox');
+  
+  selectItems.forEach(item=>{
+    item.addEventListener('mouseenter',()=>{
+      item.querySelector('.addPlanBtn').classList.remove('hide');
+    });
+  });
+
+  selectItems.forEach(item=>{
+    item.addEventListener('mouseleave',()=>{
+      item.querySelector('.addPlanBtn').classList.add('hide');
+    });
+  });
+
+  addPlanBtns.forEach(Btn=>{
+    Btn.addEventListener('click',(e)=>{
+      e.preventDefault();
+      document.querySelector('.shadow').classList.remove('hide');
+      document.querySelector('.modal').classList.remove('hide');
+    });
+  });
+  
+  xBox.addEventListener('click',()=>{
+    document.querySelector('.shadow').classList.add('hide');
+    document.querySelector('.modal').classList.add('hide');
+  });
 }
 
-const selectItems = document.querySelectorAll('.selectItem');
-const xBox = document.querySelector('.xBox');
-
-selectItems.forEach(item=>{
-  item.addEventListener('click',(e)=>{
-    e.preventDefault();
-    document.querySelector('.shadow').classList.remove('hide');
-    document.querySelector('.modal').classList.remove('hide');
-  });
-});
-
-xBox.addEventListener('click',()=>{
-  document.querySelector('.shadow').classList.add('hide');
-  document.querySelector('.modal').classList.add('hide');
-})
 
