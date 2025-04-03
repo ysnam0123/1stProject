@@ -38,8 +38,6 @@ function createCalendar(year, month){
   const calendar = document.getElementById('calendarWrapper');
   const calendarInfo = document.getElementById("calendarInfo");
   calendar.innerHTML = '';
-  // let setMonth = '';
-  // let dateInfo = 0;
 
   if(month + 1 < 10){
     calendarInfo.textContent = `${year}.0${month + 1}`;
@@ -52,7 +50,7 @@ function createCalendar(year, month){
   const date = new Date(year,month,1);
   const lastDay = new Date(year,month + 1,0).getDay();
   const lastDate = new Date(year,month + 1,0).getDate();
-  const firstDay = date.getDay();
+  let firstDay = date.getDay();
 
   const weekDays = ['SUN','MON','TUE','WED','THU','FRI','SET'];
   const weekDaysContainer = document.createElement('div');
@@ -60,6 +58,8 @@ function createCalendar(year, month){
   weekDays.forEach((day)=>{
     const dayDiv = document.createElement('div');
     dayDiv.textContent = day;
+    if(day === 'SET') dayDiv.style.color = '#3389ff';
+    if(day === 'SUN') dayDiv.style.color = '#ff0000';
     weekDaysContainer.appendChild(dayDiv);
   });
 
@@ -85,12 +85,17 @@ function createCalendar(year, month){
     </div>
     <ul class="planList"></ul>
     `;
+    
+        if(firstDay > 6) firstDay = 0;
+        if(firstDay === 0) dayDiv.querySelector('span').style.color = '#ff0000';
+        if(firstDay === 6) dayDiv.querySelector('span').style.color = '#3389ff';
+        firstDay += 1;
 
     const planListEl = dayDiv.querySelector(".planList");
     let date = dayDiv.querySelector('span').textContent;
-
+    
     dayDiv.dataset.dateInfo = `${year}${setMonth}${date}`;
-
+    
     listItemAppend(dayDiv.dataset.dateInfo,planListEl);
     daysContainer.appendChild(dayDiv);
   }
@@ -154,12 +159,19 @@ function bind(){
   });
   
   saveBtn.addEventListener('click',(e)=>{
+    document.getElementById('warning').textContent = "";
     e.preventDefault();
     const title = document.getElementById("title");
     const color = document.getElementById("colorInput");
-    const inputs = [title, startday, endday, color];
+    const inputs = [title, startday, endday];
+
+    if(!title.value){
+      document.getElementById('warning')
+      .textContent = "필수 입력 사항인 일정, 시작 날짜, 종료 날짜를 입력 하세요.";
+      return
+    }
     
-    const titleValue = title.value;
+    const titleValue = title.value.trim();
     const startdayValue = startday.value.split('-').join('');
     const enddayValue = endday.value.split('-').join('');
     const colorValue = color.value; 
@@ -201,6 +213,7 @@ function bind(){
   cancelBtn.addEventListener('click',(e)=>{
     e.preventDefault();
     clearValue();
+    document.getElementById('warning').textContent = "";
     document.querySelector('.shadow').classList.add('hide');
     document.querySelector('.modal').classList.add('hide');
   });
