@@ -20,8 +20,9 @@
 
   // 비밀번호 확인 (8자 이상 & 일치 여부 검사)
   const passwordsMatch = (e) => {
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*[\d\W])[A-Za-z\d\W]{8,20}$/;
     e.target.classList.remove('pass', 'fail'); // 기존 클래스 제거
-    password.value === e.target.value
+    password.value === e.target.value && passwordPattern.test(e.target.value)
       ? e.target.classList.add('pass') // 일치하면 pass 추가
       : e.target.classList.add('fail'); // 불일치하면 fail 추가
   };
