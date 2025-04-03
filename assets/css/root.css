@@ -16,6 +16,7 @@
   --color-blue: #0064ff;
   --color-rightGray: #cccccc;
   --color-darkGray: #929292;
+  --calender-border : 1px solid #999;
 
   /* 추가 color */
   --white: #fafafa;
@@ -30,6 +31,7 @@
   --error: #ef2b2a;
   --notification: #efbb00;
   --success: #00c400;
+  --before-bg:#3389ff;
 
   /* 추가 칸반보드용*/
   --bg-yellow: rgba(250, 216, 158, 0.5);

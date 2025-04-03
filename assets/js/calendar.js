@@ -4,6 +4,7 @@ let currentMonth = today.getMonth();
 const leftBtn = document.getElementById('leftBtn');
 const rightBtn = document.getElementById('rightBtn');
 const cancelBtn = document.querySelector('.cancelBtn');
+const startday = document.getElementById("startday");
 let setMonth = '';
 let dateInfo = 0;
 
@@ -52,7 +53,7 @@ function createCalendar(year, month){
   const lastDate = new Date(year,month + 1,0).getDate();
   const firstDay = date.getDay();
 
-  const weekDays = ['일','월','화','수','목','금','토'];
+  const weekDays = ['SUN','MON','TUE','WED','THU','FRI','SET'];
   const weekDaysContainer = document.createElement('div');
   weekDaysContainer.classList.add('weekDays');
   weekDays.forEach((day)=>{
@@ -78,7 +79,7 @@ function createCalendar(year, month){
 
     dayDiv.innerHTML = `
     <div>
-    <span>${i}</span>
+    <span>${i < 10 ? "0"+i : i}</span>
     <button class="addPlanBtn hide">추가 +</button>
     </div>
     <ul class="planList"></ul>
@@ -86,8 +87,6 @@ function createCalendar(year, month){
 
     const planListEl = dayDiv.querySelector(".planList");
     let date = dayDiv.querySelector('span').textContent;
-
-    if(date < 10) date = `0${date}`;
 
     dayDiv.dataset.dateInfo = `${year}${setMonth}${date}`;
 
@@ -102,13 +101,12 @@ function createCalendar(year, month){
     for(let i = 0; i < datas.length; i++){
       let { color, title } = datas[i] || [];
       if(color === '색상') color = "#3389ff";
-      if(title === '') title = "무제";
+      if(title === '') title = "제목을 지어주세요";
   
-      console.log(title);
       const li = document.createElement("li");
       li.classList.add('planListItem');
       li.textContent = title;
-      li.style.backgroundColor = color;
+      li.style.setProperty("--before-bg", color);
   
       parenstEl.appendChild(li);
     }
@@ -147,6 +145,8 @@ function bind(){
       e.preventDefault();
       const parentEl = e.target.parentElement.parentElement;
       dateInfo = parentEl.dataset.dateInfo;
+      startday.value = dateInfo.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+
       document.querySelector('.shadow').classList.remove('hide');
       document.querySelector('.modal').classList.remove('hide');
     });
@@ -155,18 +155,16 @@ function bind(){
   saveBtn.addEventListener('click',(e)=>{
     e.preventDefault();
     const title = document.getElementById("title");
-    const startday = document.getElementById("startday");
     const endday = document.getElementById("endday");
     const color = document.getElementById("colorInput");
-  
+    const inputs = [title, startday, endday, color];
+    
     const titleValue = title.value;
     const startdayValue = startday.value.split('-').join('');
     const enddayValue = endday.value.split('-').join('');
     const colorValue = color.value; 
   
-    // inputValidation(title, startday, endday, color);
-  
-    setStorage(dateInfo,titleValue,startdayValue,enddayValue,colorValue);
+    setStorage(titleValue,startdayValue,enddayValue,colorValue);
     
     clearValue();
   
@@ -177,10 +175,19 @@ function bind(){
     bind();
   });
   
-  // function inputValidation(title, startday, endday, color){
-  //   if(title.value === '' || color.value === '' || startday.value === '' || endday.value === ''){
-  
-  //   }
+  // function inputValidation(inputs){
+
+  //   let valid = false;
+
+  //   inputs.every( input => input.value === '' || input.value === '색상')
+
+  //   return valid
+  // }
+
+  // function inputValidationClear(inputs){
+  //   inputs.forEach(input=>{
+  //     input.style.border = 'border: 1px solid rgba(0,0,0,.6);';
+  //   });
   // }
   
   function clearValue(){
@@ -190,19 +197,18 @@ function bind(){
     document.getElementById("colorInput").selectedIndex = 0;
   }
   
-  function setStorage(dataInfo,title,startday,endday,color){
+  function setStorage(title,startday,endday,color){
     const obj = {
       'title' : title,
       'startday' : startday,
       'endday' : endday,
       'color' : color,
     }
-    const temp = JSON.parse(localStorage.getItem(dataInfo)) || [];
-    temp.push({...obj});
     //시작일~마감일까지 정보 로컬 스토리지에 추가
-    for(let i = +temp[temp.length-1].startday;i <= +temp[temp.length-1].endday;i++){
+    for(let i = +obj['startday'];i <= +obj['endday'];i++){
+      const temp = JSON.parse(localStorage.getItem(`${i}`)) || [];
+      temp.push(obj);
       localStorage.setItem(`${i}`,JSON.stringify(temp));
-      console.log(i,temp);
     }
   }
   
