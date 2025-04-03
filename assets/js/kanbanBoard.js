@@ -53,6 +53,17 @@ const handleDrop = (event) => {
 const handleDragend = (event) => {
     event.target.classList.remove("dragging");
     event.target.style.display = "block";
+
+    const task = event.target;
+    const column = task.closest('.column');
+    if (column) {
+        const bulletColor = getComputedStyle(column).getPropertyValue('--bullet-color');
+        task.style.setProperty('--bullet-color', bulletColor);
+
+        // 밑줄 색상 업데이트
+        const underline = task.querySelector('div:last-child');
+        underline.style.backgroundColor = bulletColor;
+    }
 };
 
 const handleDragstart = (event) => {
@@ -88,8 +99,22 @@ const handleEdit = (event) => {
 
 const handleBlur = (event) => {
     const input = event.target;
-    const content = input.innerText.trim() || "Untitled";
+    if (document.activeElement === input) {
+        return;
+    }
+
+    const content = input.innerText.trim();
+    if (!content) {
+        input.remove();
+        return;
+    }
+
     const task = createTask(content.replace(/\n/g, "<br>"));
+    const column = input.closest('.column');
+    if (column) {
+        const bulletColor = getComputedStyle(column).getPropertyValue('--bullet-color');
+        addUnderline(task, bulletColor); // 밑줄 스타일 추가
+    }
     input.replaceWith(task);
 };
 
@@ -103,7 +128,7 @@ const handleAdd = (event) => {
 const updateTaskCount = (column) => {
     const tasks = column.querySelector(".tasks").children;
     const taskCount = tasks.length;
-    column.querySelector(".column-title h3").dataset.tasks = taskCount;
+    column.querySelector(".column-title .task-count").innerText = `(${taskCount})`;
 };
 
 const observeTaskChanges = () => {
@@ -114,6 +139,21 @@ const observeTaskChanges = () => {
 };
 
 observeTaskChanges();
+
+// 밑줄 스타일 추가 함수
+const addUnderline = (task, color) => {
+    task.style.position = 'relative';
+    task.style.paddingBottom = '30px';
+
+    const underline = document.createElement('div');
+    underline.style.position = 'absolute';
+    underline.style.left = '0';
+    underline.style.bottom = '0';
+    underline.style.width = '100%';
+    underline.style.height = '5px';
+    underline.style.backgroundColor = color;
+    task.appendChild(underline);
+};
 
 const createTask = (content) => {
     const task = document.createElement("div");
@@ -127,25 +167,38 @@ const createTask = (content) => {
     task.addEventListener("dragend", handleDragend);
 
     task.querySelector('.delete-task-btn').addEventListener('click', (event) => {
-        event.stopPropagation(); 
+        event.stopPropagation();
         task.remove();
     });
+
+    // 밑줄 스타일 적용
+    task.style.position = 'relative';
+    task.style.paddingBottom = '30px';
+
+    const underline = document.createElement('div');
+    underline.style.position = 'absolute';
+    underline.style.left = '0';
+    underline.style.bottom = '0';
+    underline.style.width = '100%';
+    underline.style.height = '5px';
+    task.appendChild(underline);
     return task;
 };
 
 const createTaskInput = (text = "") => {
     const input = document.createElement("div");
     input.className = "task-input";
-    input.dataset.placeholder = "Task name";
+    input.dataset.placeholder = "할 일을 입력해 보세요.";
     input.contentEditable = true;
     input.innerText = text;
+
 
     input.addEventListener("blur", handleBlur);
 
     input.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
             event.preventDefault();
-            input.blur(); // Blur 이벤트를 트리거하여 태스크 추가
+            input.blur();
         }
     });
 
@@ -209,20 +262,40 @@ tasks.forEach((col, idx) => {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const columns = document.querySelectorAll('.column');
     const columnColors = ['#fcebce', '#e1effe', '#daf3e2', '#fed7d6'];
     const bulletColors = ['#FFB638', '#77B8FF', '#7AEA9D', '#FF8C8C'];
 
     columns.forEach((column, index) => {
         column.style.backgroundColor = columnColors[index % columnColors.length];
-        
-        const columnColor = columnColors[index % columnColors.length];
+
+        // 글머리표 색상
         const bulletColor = bulletColors[index % bulletColors.length];
+        column.style.setProperty('--bullet-color', bulletColor);
 
         const styleSheet = document.createElement("style");
         styleSheet.type = "text/css";
-        styleSheet.innerText = `.column:nth-child(${index + 1}) .task::before { color: ${bulletColor}; }`;
+        styleSheet.innerText = `
+            .column:nth-child(${index + 1}) .task::before { color: ${bulletColor}; }
+        `;
         document.head.appendChild(styleSheet);
+
+        // 밑줄 색상
+        const tasks = column.querySelectorAll('.task');
+        tasks.forEach(task => {
+            const underline = task.querySelector('div:last-child');
+            underline.style.backgroundColor = bulletColor;
+        });
+    });
+
+    // 초기 태스크에 밑줄 추가
+    const allTasks = document.querySelectorAll('.task');
+    allTasks.forEach(task => {
+        const column = task.closest('.column');
+        if (column) {
+            const bulletColor = getComputedStyle(column).getPropertyValue('--bullet-color');
+            addUnderline(task, bulletColor);
+        }
     });
 });
