@@ -56,6 +56,9 @@
   border: 1px solid ;
   border-bottom: 0;
 }
+.calendarWrapper .weekDays div{
+  font-weight: bold;
+}
 .calendarWrapper .days{
   border-top: var(--calender-border);
   text-align: left;
