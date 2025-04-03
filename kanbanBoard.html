@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/main.css" />
-    <link rel="stylesheet" href="./css/reset.css" />
-    <link rel="stylesheet" href="./css/kanbanBoard.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/kanbanBoard.css" />
     <link rel="website icon" type="svg" href="./assets/images/ms_logo.svg" />
     <link
       rel="stylesheet"
@@ -160,7 +160,7 @@
         <div class="columns">
           <div class="column" id="column1">
             <div class="column-title">
-              <h3>대기</h3>
+              <h3>대기 <span class="task-count"></span></h3>
               <div>
                 <button data-add><i class="fa-solid fa-plus"></i></button>
                 <button data-delete><i class="fa-solid fa-trash"></i></button>
@@ -170,7 +170,7 @@
           </div>
           <div class="column" id="column2">
             <div class="column-title">
-              <h3>진행 중</h3>
+              <h3>진행 중 <span class="task-count"></span></h3>
               <div>
                 <button data-add><i class="fa-solid fa-plus"></i></button>
                 <button data-delete><i class="fa-solid fa-trash"></i></button>
@@ -180,17 +180,17 @@
           </div>
           <div class="column" id="column3">
             <div class="column-title">
-              <h3>완료</h3>
+              <h3>완료 <span class="task-count"></span></h3>
               <div>
                 <button data-add><i class="fa-solid fa-plus"></i></button>
-                <button data-delete><i class="fa-solid fa-minus"></i></button>
+                <button data-delete><i class="fa-solid fa-trash"></i></button>
               </div>
             </div>
             <div class="tasks" id="tasks3"></div>
           </div>
           <div class="column" id="column4">
             <div class="column-title">
-              <h3>이슈</h3>
+              <h3>이슈 <span class="task-count"></span></h3>
               <div>
                 <button data-add><i class="fa-solid fa-plus"></i></button>
                 <button data-delete><i class="fa-solid fa-trash"></i></button>
@@ -222,7 +222,7 @@
         </form>
       </dialog>
 
-      <script src="./js/kanbanBoard.js"></script>
+      <script src="./assets/js/kanbanBoard.js"></script>
     </div>
   </body>
 </html>

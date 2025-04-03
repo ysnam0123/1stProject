@@ -38,12 +38,6 @@ const handleDragover = (event) => {
   }
 };
 
-// const addBtn = document.getElementById("addBtn");
-
-// addBtn.addEventListener("click", () => {
-//   testModal.showModal();
-// });
-
 testModal
   .querySelector("#cancel")
   .addEventListener("click", () => testModal.close());
@@ -59,8 +53,22 @@ const handleDrop = (event) => {
 const handleDragend = (event) => {
   event.target.classList.remove("dragging");
   event.target.style.display = "block";
+
+  updateTaskUnderlineColor(event.target); // 드래그가 끝난 후 밑줄 색 업데이트
 };
 
+const updateTaskUnderlineColor = (task) => {
+  setTimeout(() => {
+    const beforeStyle = window.getComputedStyle(task, "::before");
+    const beforeColor = beforeStyle.color || "black"; // 기본값 black
+
+    // 밑줄 색상 업데이트
+    const underline = task.querySelector("div:last-child");
+    if (underline) {
+      underline.style.backgroundColor = beforeColor;
+    }
+  }, 0); // setTimeout을 사용해 DOM 업데이트 후 실행
+};
 const handleDragstart = (event) => {
   event.dataTransfer.effectsAllowed = "move";
   event.dataTransfer.setData("text/plain", "");
@@ -88,8 +96,23 @@ const handleEdit = (event) => {
 
 const handleBlur = (event) => {
   const input = event.target;
-  const content = input.innerText.trim() || "제목 없음";
+  if (document.activeElement === input) {
+    return;
+  }
+
+  const content = input.innerText.trim();
+  if (!content) {
+    input.remove();
+    return;
+  }
+
   const task = createTask(content.replace(/\n/g, "<br>"));
+  const column = input.closest(".column");
+  if (column) {
+    const bulletColor =
+      getComputedStyle(column).getPropertyValue("--bullet-color");
+    addUnderline(task, bulletColor); // 밑줄 스타일 추가
+  }
   input.replaceWith(task);
 };
 
@@ -103,7 +126,9 @@ const handleAdd = (event) => {
 const updateTaskCount = (column) => {
   const tasks = column.querySelector(".tasks").children;
   const taskCount = tasks.length;
-  column.querySelector(".column-title h3").dataset.tasks = taskCount;
+  column.querySelector(
+    ".column-title .task-count"
+  ).innerText = `(${taskCount})`;
 };
 
 const observeTaskChanges = () => {
@@ -114,6 +139,21 @@ const observeTaskChanges = () => {
 };
 
 observeTaskChanges();
+
+// 밑줄 스타일 추가 함수
+const addUnderline = (task, color) => {
+  task.style.position = "relative";
+  task.style.paddingBottom = "30px";
+
+  const underline = document.createElement("div");
+  underline.style.position = "absolute";
+  underline.style.left = "0";
+  underline.style.bottom = "0";
+  underline.style.width = "100%";
+  underline.style.height = "5px";
+  underline.style.backgroundColor = color;
+  task.appendChild(underline);
+};
 
 const createTask = (content) => {
   const task = document.createElement("div");
@@ -130,14 +170,41 @@ const createTask = (content) => {
   task.querySelector(".delete-task-btn").addEventListener("click", (event) => {
     event.stopPropagation();
     task.remove();
+    const column = task.closest(".column");
+    if (column) updateTaskCount(column); // 삭제 시에도 count 업데이트
   });
+
+  // 밑줄 스타일 적용
+  task.style.position = "relative";
+  task.style.paddingBottom = "30px";
+
+  const underline = document.createElement("div");
+  underline.style.position = "absolute";
+  underline.style.left = "0";
+  underline.style.bottom = "0";
+  underline.style.width = "100%";
+  underline.style.height = "5px";
+
+  // ::before의 color 값을 가져오기
+  setTimeout(() => {
+    const beforeStyle = window.getComputedStyle(task, "::before"); // ::before 스타일 가져오기
+    const beforeColor = beforeStyle.color || "black"; // color 값이 없으면 기본값 black 적용
+    underline.style.backgroundColor = beforeColor;
+  }, 0); // task가 DOM에 추가된 후 실행되도록 setTimeout 사용
+
+  task.appendChild(underline);
+  const column = document.querySelector(".column"); // 현재 task가 속한 컬럼 찾기
+  if (column) updateTaskCount(column); // 생성될 때도 count 업데이트
+
   return task;
 };
+
+observeTaskChanges();
 
 const createTaskInput = (text = "") => {
   const input = document.createElement("div");
   input.className = "task-input";
-  input.dataset.placeholder = "테스크 이름";
+  input.dataset.placeholder = "할 일을 입력해 보세요.";
   input.contentEditable = true;
   input.innerText = text;
 
@@ -175,12 +242,6 @@ columnsContainer.addEventListener("click", (event) => {
 
 // confirm deletion
 modal.addEventListener("#confirm", () => currentTask && currentTask.remove());
-
-// let columnParent = event.target.closest(".column"); // 가장 가까운 .column 찾기
-// if (columnParent) {
-//   columnParent.remove(); // 컬럼 삭제
-//   applyColumnStyles(); // 삭제 후 스타일 재적용
-// }
 
 // cancel deletion
 modal.querySelector("#cancel").addEventListener("click", () => modal.close());
@@ -256,6 +317,13 @@ const applyColumnStyles = () => {
 
     column.style.backgroundColor = columnColor;
 
+    // 밑줄 색상
+    const tasks = column.querySelectorAll(".task");
+    tasks.forEach((task) => {
+      const underline = task.querySelector("div:last-child");
+      underline.style.backgroundColor = bulletColor;
+    });
+
     // 새로운 스타일 추가 (ID 기반)
     const styleSheet = document.createElement("style");
     styleSheet.type = "text/css";
@@ -280,7 +348,7 @@ addBoardBtn.addEventListener("click", () => {
 
   column.innerHTML = `
     <div class="column-title">
-      <h3>새로운 보드</h3>
+      <h3>새로운 보드 <span class="task-count">(0)</span></h3> <!-- ✅ task count을 h3 안에 추가 -->
       <div>
         <button data-add><i class="fa-solid fa-plus"></i></button>
         <button data-delete><i class="fa-solid fa-trash"></i></button>
@@ -301,6 +369,12 @@ addBoardBtn.addEventListener("click", () => {
   const tasksEl = column.querySelector(".tasks");
   tasksEl.addEventListener("dragover", handleDragover);
   tasksEl.addEventListener("drop", handleDrop);
+
+  // ✅ 새 컬럼에서도 task 개수 자동 업데이트
+  const observer = new MutationObserver(() => updateTaskCount(column));
+  observer.observe(tasksEl, { childList: true });
+
+  updateTaskCount(column); // 처음 생성 시 count 업데이트
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -325,36 +399,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // dblclick으로 task title 변경 기능
 document.addEventListener("DOMContentLoaded", function () {
-  // 초기 로드 시 모든 컬럼 타이틀에 이벤트 연결
   const columnTitles = document.querySelectorAll(".column-title h3");
   columnTitles.forEach(enableColumnTitleEditing);
 });
 
-// 재사용 가능한 타이틀 편집 함수
 function enableColumnTitleEditing(titleElement) {
   titleElement.addEventListener("dblclick", function () {
-    const originalText = this.textContent.trim();
-    const input = document.createElement("input");
+    const originalText = [...this.childNodes]
+      .filter((node) => node.nodeType === Node.TEXT_NODE)
+      .map((node) => node.textContent.trim())
+      .join(""); // 텍스트 노드만 가져옴
 
+    const input = document.createElement("input");
     input.type = "text";
     input.value = originalText;
     input.className = "column-title-input";
 
     this.replaceWith(input);
     input.focus();
-
-    // 커서를 텍스트 끝으로 이동
     input.setSelectionRange(originalText.length, originalText.length);
 
     input.addEventListener("blur", function () {
       const newText = input.value.trim() || originalText;
-      const newH3 = document.createElement("h3");
-      newH3.textContent = newText;
-      newH3.dataset.tasks = titleElement.dataset.tasks;
+      const newH3 = titleElement.cloneNode(true); // 기존 h3 복사
 
-      // 다시 더블 클릭 이벤트 연결
+      // 기존 h3의 텍스트 노드만 변경
+      newH3.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          node.textContent = newText;
+        }
+      });
+
       enableColumnTitleEditing(newH3);
-
       input.replaceWith(newH3);
     });
 

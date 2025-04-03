@@ -9,7 +9,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  margin-right: 500px;
 }
 
 .header-container {
@@ -18,7 +18,7 @@
   align-items: center;
   padding: 30px;
   margin-top: 50px;
-  margin-left: -30px;
+  margin-left: -50px;
   margin-bottom: 20px;
   background-color: transparent;
 }
@@ -48,7 +48,7 @@
 }
 
 .add-board-btn {
-  position: absolute;
+  position: relative;
   right: 0;
   background-color: #e7f0ff;
   border: none;
@@ -66,6 +66,7 @@
   /* justify-content: space-around; */
   gap: 15px;
   width: 100%;
+  margin-left: 15px;
   /* max-width: 1200px; */
 }
 
