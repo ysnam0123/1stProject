@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/root.css" />
+    <link rel="stylesheet" href="./assets/css/signup.css" />
+
+    <link rel="website icon" type="svg" href="./assets/images/ms_logo.svg" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>회원가입</h2>
+      <div class="header-container">
+        <p>DocMate 회원가입 후 다양한 서비스를 경험해보세요.</p>
+        <img src="./assets/images/ms_logo.svg" class="headerLogo" alt="logo" />
+        <img src="./assets/images/ms_logo.svg" class="headerLogo" alt="logo" />
+        <img src="./assets/images/ms_logo.svg" class="headerLogo" alt="logo" />
+      </div>
+      <hr class="hr1" />
+
+      <div class="inputInfo">가입정보입력</div>
+      <hr />
+      <form method="post" action="#" name="register">
+        <div class="name">
+          <label for="name">이름 <span>*</span></label>
+          <input
+            type="text"
+            id="name"
+            placeholder="이름을 입력하세요"
+            required
+          />
+        </div>
+        <div class="id">
+          <label for="id">아이디 <span>*</span></label>
+          <div class="id-group">
+            <input
+              type="text"
+              id="id"
+              placeholder="아이디: 6~12자 이내"
+              required
+            />
+            <button type="button" class="check-btn">중복확인</button>
+          </div>
+        </div>
+
+        <div class="password">
+          <label for="password">비밀번호 <span>*</span></label>
+          <input
+            type="password"
+            id="password"
+            placeholder="비밀번호: 영문, 숫자, 특수문자 중 2가지 이상 조합 (8~20자)"
+            required
+          />
+
+          <label for="confirm-password">비밀번호 확인 <span>*</span></label>
+          <input
+            type="password"
+            id="confirm-password"
+            placeholder="비밀번호 확인 입력"
+            required
+          />
+        </div>
+
+        <div class="email">
+          <label for="email">이메일 <span>*</span></label>
+          <div class="email-group">
+            <input
+              type="text"
+              id="email"
+              placeholder="이메일 주소 입력"
+              required
+            />
+            <img src="./assets/images/email.png" alt="logo" class="logo" />
+            <input
+              type="text"
+              id="email-domain"
+              placeholder="직접입력"
+              required
+            />
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn-cancel">이전</button>
+          <button type="submit" class="btn-submit">가입하기</button>
+        </div>
+      </form>
+    </div>
+    <script src="./assets/js/password-signup.js"></script>
+    <script src="./assets/js/validation.js"></script>
+  </body>
+</html>
