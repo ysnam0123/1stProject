@@ -128,7 +128,6 @@ function createCalendar(year, month){
 }
 
 function bind(){
-  // const cancelBtn = document.querySelector('.cancelBtn');
   const selectItems = document.querySelectorAll('.selectItem');
   const addPlanBtns = document.querySelectorAll('.selectItem .addPlanBtn');
   const saveBtn = document.querySelector('.saveBtn');
@@ -218,5 +217,3 @@ function bind(){
     document.querySelector('.modal').classList.add('hide');
   });
 }
-
-// 인풋 값을 로컬 스토리지에 저장 -> calendar 함수 실행 -> daydiv.dataset으로 로컬 스토리지 키값에 접근-> []안의 객체에 접근 title color값 구조분해 배열의 길이만큼 daydiv안에 div 넣고 스타일링
