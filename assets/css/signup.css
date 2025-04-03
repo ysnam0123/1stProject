@@ -8,20 +8,80 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: var(--bg-color);
 }
-
+.headerIconBox {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+}
+/* 라이트 다크 모드 토글 */
+.invisible {
+  display: none;
+}
+.modeToggle {
+  display: flex;
+  align-items: center;
+  /* position: absolute;
+  right: 70px;
+  top: 10px; */
+}
+/* 토글 바 */
+.modeToggleBar {
+  color: var(--toggleBar-color);
+  width: 90px;
+  height: 40px;
+}
+/* 토글 원 */
+#toggleCircle {
+  display: flex;
+  width: 50px;
+  position: absolute;
+  left: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.toggleCircle:hover {
+  transform: scale(1.05);
+}
+.toggleCircle:active {
+  transition: 0.1s all ease;
+  opacity: 0.8;
+}
+.modeCircle {
+  color: var(--color-blue);
+  width: 30px;
+}
+/* 해 달 */
+.mode {
+  transition: all 0.3s ease;
+}
+.mode {
+  color: var(--white);
+  position: absolute;
+  left: 11%;
+  top: 20%;
+}
+.moon {
+  width: 18px;
+  color: black;
+}
 .container {
-  background: white;
+  background: var(--bg-color);
   padding: 60px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+  box-shadow: var(--box-shadow);
   width: 500px;
+  color: var(--text-color);
 }
 
 h2 {
   text-align: left;
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 30px;
+  font-weight: 700;
   margin-bottom: 10px;
 }
 .hr1 {

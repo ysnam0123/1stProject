@@ -3,6 +3,7 @@
   --bg-color: #222222;
   --text-color: #ffffff;
   --border: #e3e3e3;
+  --box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   /* 라이트,다크모드 토글 색상 */
   --toggleBar-color: #363636;
 }
@@ -13,6 +14,7 @@
   --text-color: #222222;
   --text-darkGray: #737373;
   --bg-color: #ffffff;
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
   /* 라이트,다크모드 토글 색상 */
   --toggleBar-color: #ffffff;
@@ -20,6 +22,7 @@
   --color-blue: #0064ff;
   --color-rightGray: #cccccc;
   --color-darkGray: #929292;
+  --calender-border: 1px solid #999;
 
   /* 추가 color */
   --white: #fafafa;
@@ -34,6 +37,8 @@
   --error: #ef2b2a;
   --notification: #efbb00;
   --success: #00c400;
+  --before-bg: #3389ff;
+  --black: #222222;
 
   /* 추가 칸반보드용*/
   --bg-yellow: rgba(250, 216, 158, 0.5);
