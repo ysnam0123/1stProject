@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     changeMode();
   });
+
   function changeMode() {
     // root = 문서 전체 요소 선택
     const root = document.documentElement;
@@ -88,9 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
       modeCircle.style.color = '#F6DF12';
       toggleCircle.classList.remove('lightMode');
       toggleCircle.classList.add('darkMode');
-      sidebar.style.backgroundColor = 'var(--dm-bg-color)';
-      container.style.backgroundColor = 'var(--dm-bg-color)';
-      root.style.setProperty('--light--text-black', 'var(--dm-text-color)');
+      // sidebar.style.backgroundColor = 'var(--dm-bg-color)';
+      // container.style.backgroundColor = 'var(--dm-bg-color)';
+      root.style.setProperty('--light-bg-color', 'var(--dm-bg-color)'); // 배경색 변경
+      root.style.setProperty('--light-text-black', 'var(--dm-text-color)'); // 텍스트 색 변경
 
       // 로고 변경 (사이드바 상태에 따라 다르게)
       if (sidebar.classList.contains('ms')) {
@@ -108,10 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
       modeCircle.style.color = '#0064ff';
       toggleCircle.classList.remove('darkMode');
       toggleCircle.classList.add('lightMode');
-      document.body.style.color = '#222';
-      sidebar.style.backgroundColor = 'var(--light-bg-color)';
-      container.style.backgroundColor = 'var(--light-bg-color)';
-      root.style.setProperty('--text-color', 'var(--light-text-black)');
+      root.style.setProperty('--dm-bg-color', 'var(--light-bg-color)'); // 배경색 변경
+      root.style.setProperty('--dm-text-color', 'var(--light-text-black)'); // 텍스트 색 변경
 
       // 로고 변경 (사이드바 상태에 따라 다르게)
       if (sidebar.classList.contains('ms')) {
@@ -123,7 +123,37 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
+  const animationElements = document.querySelectorAll('.animation1');
+  animationElements.forEach((element, index) => {
+    setTimeout(() => {
+      element.classList.add('show');
+    }, index * 1000);
+  });
 
+  // 로그인 이전 화면
+  const beforeLogin = document.createElement('div');
+  beforeLogin.classList.add('beforeLogin');
+  const beforeLogin1 = document.createElement('h1');
+  beforeLogin1.classList.add('beforelogin1');
+  beforeLogin1.textContent = 'Doc Mate에 오신것을 환영합니다';
+  const beforeLogin2 = document.createElement('h1');
+  beforeLogin2.classList.add('beforelogin2');
+  beforeLogin2.textContent = '칸반보드를 통해 프로젝트 진행상황을 확인하고,';
+  const beforeLogin3 = document.createElement('h1');
+  beforeLogin3.classList.add('beforelogin3');
+  beforeLogin3.textContent = '캘린더를 통해 일정을 관리하고,';
+  const beforeLogin4 = document.createElement('h1');
+  beforeLogin4.classList.add('beforelogin4');
+  beforeLogin4.textContent =
+    '문서 편집 작업을 통해 당신의 프로젝트를 완성하세요';
+  const loginBtn = document.createElement('loginBtn');
+  loginBtn.classList.add('loginBtn');
+
+  beforeLogin.appendChild(beforeLogin1);
+  beforeLogin.appendChild(beforeLogin2);
+  beforeLogin.appendChild(beforeLogin3);
+  beforeLogin.appendChild(beforeLogin4);
+  beforeLogin.appendChild(loginBtn);
   //  로그아웃 모달창
   const profileIcon = document.querySelector('.profile_icon');
 
@@ -202,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
     newProjectModal.classList.add('newProjectModal');
 
     // 프로젝트 모달창 안내 제목
+
     const npTitle = document.createElement('h1');
     npTitle.classList.add('npTitle');
     npTitle.textContent = '프로젝트 생성하기';
@@ -305,7 +336,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 취소 버튼 클릭 시 모달 닫기
     newProjectCancel.addEventListener('click', () => {
-      newProjectWrapper.remove();
+      newProjectModal.style.animation = 'slideUp 0.3s ease-out';
+      newProjectModal.addEventListener('animationend', () => {
+        newProjectWrapper.remove();
+      });
+    });
+    // 멤버 추가하기 모달 창 생성
+    addMemberBtn.addEventListener('click', () => {
+      const addMemberModal = document.createElement('div');
+      addMemberModal.classList.add('addMemberModal');
+
+      const findMemberBox = document.createElement('div');
+      findMemberBox.classList.add('findMemberBox');
+
+      const searchIcon = document.createElement('img');
+      searchIcon.classList.add('searchIcon');
+      searchIcon.src = '/assets/images/Search.svg';
+      searchIcon.alt = 'searchIcon';
+      const findMemberInput = document.createElement('input');
+      findMemberInput.type = 'text';
+      findMemberInput.classList.add('findMemberInput');
+      findMemberInput.placeholder = '아이디 또는 이메일 입력';
+
+      const findMemberBtn = document.createElement('button');
+      findMemberBtn.classList.add('findMember');
+      findMemberBtn.textContent = '추가';
+
+      const memberLiBox = document.createElement('div');
+      memberLiBox.classList.add('memberLiBox');
+
+      const memberLi = document.createElement('div');
+      memberLi.classList.add('memberLi');
+
+      const memberLiUl = document.createElement('ul');
+      memberLiUl.classList.add('memberLiUl');
+
+      // // 나중에 삭제
+      // const memberLiUlLi = document.createElement('li');
+      // memberLiUlLi.classList.add('memberLiUlLi');
+      // const memberName = document.createElement('p');
+      // memberName.classList.add('memberName');
+      // memberName.textContent = '사용자 이름';
+
+      // memberLiUl.appendChild(memberLiUlLi);
+      // memberLi.appendChild(memberLiUl);
+
+      findMemberBox.appendChild(searchIcon);
+      findMemberBox.appendChild(findMemberInput);
+      findMemberBox.appendChild(findMemberBtn);
+
+      newProjectModal.appendChild(addMemberModal);
+      addMemberModal.appendChild(findMemberBox);
+      addMemberModal.appendChild(memberLiBox);
+      addMemberModal.appendChild(memberLi);
+
+      setTimeout(() => {
+        // setTimeout을 사용해 클릭 이벤트 버블링 방지
+        document.addEventListener('click', closeModal);
+      });
+
+      function closeModal(event) {
+        if (!addMemberModal.contains(event.target)) {
+          addMemberModal.remove();
+          document.removeEventListener('click', closeModal); // 이벤트 제거
+        }
+      }
     });
   });
 });

@@ -1,12 +1,9 @@
 /*  라이트모드 */
 :root {
-  --text-color: #222222;
-  --body-color: #ececec;
   --light-border: #cccccc;
   --light-text-black: #222222;
   --light-text-darkGray: #737373;
   --light-bg-color: #ffffff;
-
   /* 다크모드 */
   --dm-bg-color: #222222;
   --dm-text-color: #ffffff;

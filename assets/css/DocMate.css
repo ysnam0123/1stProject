@@ -139,19 +139,28 @@ body {
   width: 100%;
   background-color: var(--light-bg-color);
   color: var(--light-text-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.headerIconBox {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
 }
 /* 라이트 다크 모드 토글 */
 .modeToggle {
   display: flex;
   align-items: center;
-  position: absolute;
+  /* position: absolute;
   right: 70px;
-  top: 10px;
+  top: 10px; */
 }
 /* 토글 바 */
 .modeToggleBar {
   color: var(--toggleBar-color);
-  position: relative;
   width: 90px;
   height: 40px;
 }
@@ -191,10 +200,8 @@ body {
 
 /* 프로필 아이콘 */
 .profile_icon {
-  position: absolute;
   cursor: pointer;
-  right: 20px;
-  top: 10px;
+  margin-top: 5px;
 }
 /* 로그아웃 모달창 */
 .profileModal {
@@ -284,6 +291,7 @@ body {
   transform: scale(0.95);
 }
 
+/* 모달창 사라지는 애니매이션 */
 @keyframes slideUp {
   from {
     opacity: 1;
@@ -295,12 +303,77 @@ body {
   }
 }
 
+/* 로그인 하기 전 화면  */
+.beforeLogin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 2px solid black; */
+  width: 90%;
+  height: 760px;
+}
+
+/* 
+
+.beforeLogin .show {
+  opacity: 1;
+  transform: translateY(0);
+}
+*/
+.beforeLogin h1 {
+  font-weight: 700;
+  margin-right: auto;
+  user-select: none;
+}
+.animation1 {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+.animation1.show {
+  opacity: 1;
+  transition: opacity 0.8s ease-out;
+}
+.beforeLogin1 {
+  font-size: 70px;
+  margin-bottom: 100px;
+}
+.beforeLogin2,
+.beforeLogin3,
+.beforeLogin4 {
+  font-size: 40px;
+  margin-bottom: 30px;
+  color: var(--color-darkGray);
+}
+.loginBtn {
+  margin-top: 170px;
+  width: 600px;
+  height: 70px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--color-blue);
+  color: var(--white);
+  font-size: 25px;
+  font-weight: 700;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+.loginBtn:hover {
+  opacity: 0.9;
+}
+.signupBtn {
+  cursor: pointer;
+  color: var(--color-darkGray);
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 480px;
+  text-decoration: underline;
+}
 /* 프로젝트가 없어요 화면 */
 .notYet {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 350px;
 }
 .notYetText {
   font-size: 55px;
@@ -336,53 +409,67 @@ body {
   justify-content: center;
   position: absolute;
   top: 60px;
-  right: 60px;
-  background-color: var(--light-bg-color);
+  right: 200px;
 }
 
 .newProjectModal {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1200px;
+  width: 1000px;
   height: 700px;
   padding: 40px 50px;
-  border: 3px solid black;
+  border: 2px solid var(--color-rightGray);
   border-radius: 30px;
   position: relative;
+  background-color: var(--light-bg-color);
 }
 /* 안내 제목 */
 .npTitle {
   margin-right: auto;
-  margin: 0 auto 0 140px;
+  margin: 0 auto 0 40px;
   font-weight: 500;
   font-size: 55px;
   color: var(--light-text-black);
 }
 /* 안내 내용 */
 .npComment {
-  margin: 30px auto 0 140px;
+  margin: 10px auto 0 40px;
+  width: 75%;
   font-weight: 500;
   color: var(--light-text-darkGray);
+  padding-bottom: 10px;
+  line-height: 25px;
 }
 /* input창 */
 .projectInput {
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  margin: 40px auto 0 40px;
 }
 #projectName {
   margin-bottom: 30px;
 }
 .pjInput {
-  width: 900px;
+  width: 700px;
   height: 40px;
   padding: 10px 15px;
   border-radius: 10px;
+  border: 2px solid var(--color-rightGray);
   font-size: 15px;
+  background-color: #efefef;
+}
+.pjInput:focus {
+  outline: none;
+  border: 2px solid var(--color-blue);
+  transition: none;
 }
 .projectInputLabel {
   margin-bottom: 10px;
+  font-weight: 700;
+}
+.addMember {
+  margin: 20px auto 0 40px;
 }
 /* 팀원 추가 */
 .addMemberLabel {
@@ -390,6 +477,7 @@ body {
   flex-direction: row;
   align-items: center;
   margin-top: 30px;
+  font-weight: 700;
 }
 .addMemberBtn {
   margin-left: auto;
@@ -399,14 +487,25 @@ body {
   margin-bottom: 5px;
   font-size: 16px;
   font-weight: 600;
+  background-color: var(--blue2);
+  color: var(--white);
+  cursor: pointer;
 }
+.addMemberBtn:hover {
+  opacity: 0.8;
+}
+.addMemberBtn:active {
+  transform: scale(0.95);
+}
+
 /* 팀원 목록 */
 .memberBox {
-  width: 900px;
+  width: 700px;
   padding: 15px;
-  border: 3px solid black;
+  border: 2px solid var(--color-rightGray);
+  background-color: #efefef;
   border-radius: 10px;
-  height: 150px;
+  height: 60px;
 }
 /* 생성 취소 버튼 */
 .newProjectBtnBox {
@@ -436,5 +535,82 @@ body {
   background-color: var(--color-blue);
   color: var(--white);
 }
-.newProjectCancel {
+
+/* 멤버 추가 모달창 */
+.addMemberModal {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 250px;
+  height: 300px;
+  padding: 10px 5px;
+  position: absolute;
+  right: 120px;
+  bottom: -5px;
+  background-color: var(--white);
+}
+.findMemberBox {
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 2px var(--color-rightGray);
+  width: 100%;
+}
+
+.findMemberInput {
+  padding: 5px 10px;
+  height: 30px;
+  width: 150px;
+  position: relative;
+  border-radius: 5px;
+  font-size: 14px;
+  border: none;
+}
+.findMemberInput:focus {
+  border: 0;
+  outline: none;
+}
+.findMember {
+  width: 50px;
+  border-radius: 5px;
+  height: 35px;
+  background-color: var(--color-blue);
+  color: var(--white);
+
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.findMember:hover {
+  opacity: 0.8;
+}
+.findMember:active {
+  transform: scale(0.95);
+}
+.memberLiBox {
+  width: 100%;
+  height: 100%;
+}
+.memberLiUl {
+  width: 164px;
+  position: absolute;
+  display: none;
+}
+.memberLiUlLi {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 5px 10px;
+  height: 40px;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.memberLiUlLi:hover {
+  opacity: 0.8;
 }
