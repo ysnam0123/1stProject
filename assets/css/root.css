@@ -1,14 +1,21 @@
+/* 다크모드 */
+.dark-mode {
+  --bg-color: #222222;
+  --text-color: #ffffff;
+  --border: #e3e3e3;
+  /* 라이트,다크모드 토글 색상 */
+  --toggleBar-color: #363636;
+}
+
 /*  라이트모드 */
 :root {
-  --light-border: #cccccc;
-  --light-text-black: #222222;
-  --light-text-darkGray: #737373;
-  --light-bg-color: #ffffff;
-  /* 다크모드 */
-  --dm-bg-color: #222222;
-  --dm-text-color: #ffffff;
+  --border: #cccccc;
+  --text-color: #222222;
+  --text-darkGray: #737373;
+  --bg-color: #ffffff;
+
   /* 라이트,다크모드 토글 색상 */
-  --toggleBar-color: #cccccc;
+  --toggleBar-color: #ffffff;
   /* 색상 */
   --color-blue: #0064ff;
   --color-rightGray: #cccccc;

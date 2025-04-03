@@ -23,15 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 첫 번째 클릭 시 사이드바 축소
   sbToggle.addEventListener('click', () => {
+    // 크기마다 아이콘 변경하기
     sidebar.classList.add('ms');
     sidebar.classList.remove('sidebar');
-
     sbToggle.classList.add('invisible');
     msToggle.classList.remove('invisible');
-
     sidebarLogo.forEach((logo) => logo.classList.add('invisible'));
 
-    // 다크모드인지 확인 후 작은 로고 관리
+    // 다크모드인지 확인 후 작은 로고 변경
     if (toggleCircle.classList.contains('darkMode')) {
       msLogo.classList.remove('invisible'); // 다크 모드일 때 작은 로고 보이게
     } else {
@@ -83,16 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 라이트 모드일때 버튼을 누르면
     if (toggleCircle.classList.contains('lightMode')) {
       // 다크 모드로 전환
+      document.body.classList.toggle('dark-mode');
+      //모드 원 이동
       toggleCircle.style.left = '50px';
       sun.classList.add('invisible');
       moon.classList.remove('invisible');
       modeCircle.style.color = '#F6DF12';
       toggleCircle.classList.remove('lightMode');
       toggleCircle.classList.add('darkMode');
-      // sidebar.style.backgroundColor = 'var(--dm-bg-color)';
-      // container.style.backgroundColor = 'var(--dm-bg-color)';
-      root.style.setProperty('--light-bg-color', 'var(--dm-bg-color)'); // 배경색 변경
-      root.style.setProperty('--light-text-black', 'var(--dm-text-color)'); // 텍스트 색 변경
 
       // 로고 변경 (사이드바 상태에 따라 다르게)
       if (sidebar.classList.contains('ms')) {
@@ -104,14 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else {
       // 라이트 모드로 전환
+      document.body.classList.toggle('dark-mode');
       toggleCircle.style.left = '9px';
       sun.classList.remove('invisible');
       moon.classList.add('invisible');
       modeCircle.style.color = '#0064ff';
       toggleCircle.classList.remove('darkMode');
       toggleCircle.classList.add('lightMode');
-      root.style.setProperty('--dm-bg-color', 'var(--light-bg-color)'); // 배경색 변경
-      root.style.setProperty('--dm-text-color', 'var(--light-text-black)'); // 텍스트 색 변경
 
       // 로고 변경 (사이드바 상태에 따라 다르게)
       if (sidebar.classList.contains('ms')) {
@@ -123,6 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
+
+  // 로그인 이전 화면
   const animationElements = document.querySelectorAll('.animation1');
   animationElements.forEach((element, index) => {
     setTimeout(() => {
@@ -130,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, index * 1000);
   });
 
-  // 로그인 이전 화면
   const beforeLogin = document.createElement('div');
   beforeLogin.classList.add('beforeLogin');
   const beforeLogin1 = document.createElement('h1');
@@ -154,9 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
   beforeLogin.appendChild(beforeLogin3);
   beforeLogin.appendChild(beforeLogin4);
   beforeLogin.appendChild(loginBtn);
+
   //  로그아웃 모달창
   const profileIcon = document.querySelector('.profile_icon');
-
   profileIcon.addEventListener('click', () => {
     // 모달이 이미 존재하면 아무것도 안 함
     if (document.querySelector('.profileModal')) return;
@@ -370,16 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const memberLiUl = document.createElement('ul');
       memberLiUl.classList.add('memberLiUl');
-
-      // // 나중에 삭제
-      // const memberLiUlLi = document.createElement('li');
-      // memberLiUlLi.classList.add('memberLiUlLi');
-      // const memberName = document.createElement('p');
-      // memberName.classList.add('memberName');
-      // memberName.textContent = '사용자 이름';
-
-      // memberLiUl.appendChild(memberLiUlLi);
-      // memberLi.appendChild(memberLiUl);
 
       findMemberBox.appendChild(searchIcon);
       findMemberBox.appendChild(findMemberInput);
