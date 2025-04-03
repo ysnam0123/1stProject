@@ -5,6 +5,7 @@ const leftBtn = document.getElementById('leftBtn');
 const rightBtn = document.getElementById('rightBtn');
 const cancelBtn = document.querySelector('.cancelBtn');
 const startday = document.getElementById("startday");
+const endday = document.getElementById("endday");
 let setMonth = '';
 let dateInfo = 0;
 
@@ -121,7 +122,6 @@ function createCalendar(year, month){
   calendar.appendChild(daysContainer);
 }
 
-
 function bind(){
   // const cancelBtn = document.querySelector('.cancelBtn');
   const selectItems = document.querySelectorAll('.selectItem');
@@ -146,6 +146,7 @@ function bind(){
       const parentEl = e.target.parentElement.parentElement;
       dateInfo = parentEl.dataset.dateInfo;
       startday.value = dateInfo.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+      endday.value = dateInfo.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
 
       document.querySelector('.shadow').classList.remove('hide');
       document.querySelector('.modal').classList.remove('hide');
@@ -155,7 +156,6 @@ function bind(){
   saveBtn.addEventListener('click',(e)=>{
     e.preventDefault();
     const title = document.getElementById("title");
-    const endday = document.getElementById("endday");
     const color = document.getElementById("colorInput");
     const inputs = [title, startday, endday, color];
     
@@ -175,21 +175,6 @@ function bind(){
     bind();
   });
   
-  // function inputValidation(inputs){
-
-  //   let valid = false;
-
-  //   inputs.every( input => input.value === '' || input.value === '색상')
-
-  //   return valid
-  // }
-
-  // function inputValidationClear(inputs){
-  //   inputs.forEach(input=>{
-  //     input.style.border = 'border: 1px solid rgba(0,0,0,.6);';
-  //   });
-  // }
-  
   function clearValue(){
     document.getElementById("title").value = '';
     document.getElementById("startday").value = '';
@@ -204,6 +189,7 @@ function bind(){
       'endday' : endday,
       'color' : color,
     }
+    if(+startday > +endday) return;
     //시작일~마감일까지 정보 로컬 스토리지에 추가
     for(let i = +obj['startday'];i <= +obj['endday'];i++){
       const temp = JSON.parse(localStorage.getItem(`${i}`)) || [];

@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script defer type="module" src="../1stProject/assets/js/calendar.js"></script>
   <link rel="stylesheet" type="text/css" href="../1stProject/assets/css/calendar.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <title>달력</title>
 </head>
 <body>
   <div class="container">
     <div id="calendarContainer" class="calendarContainer">
       <div id="calendarController">
-        <span id="leftBtn">&lt;</span>
+        <span id="leftBtn" class="material-symbols-outlined">
+          arrow_back_ios
+        </span>
         <span id="calendarInfo"></span>
-        <span id="rightBtn">&gt;</span>
+        <span id="rightBtn" class="material-symbols-outlined">
+          arrow_forward_ios
+        </span>
       </div>
       <div id="calendarWrapper" class="calendarWrapper"></div>
     </div>
@@ -22,17 +27,31 @@
       <div class="modalWrapper">
         <input id="title" type="text" placeholder="프로젝트 제목을 입력하세요.">
         <fieldset id="dateInput">
-          <label for="startday">시작 날짜</label>
+          <label for="startday">
+            <span class="material-symbols-outlined">
+              calendar_month
+            </span>
+            시작 날짜
+          </label>
           <input type="date" id="startday">
-          <label for="endday">종료 날짜</label>
+          <label for="endday">
+            <span class="material-symbols-outlined">
+              calendar_month
+            </span>
+            종료 날짜
+          </label>
           <input type="date" id="endday">
-        </fieldset>
-        <fieldset class="selectInput">
           <select id="colorInput">
             <option>색상</option>
-            <option value="#E10101">빨강</option>
-            <option value="#E05B07">주황</option>
-            <option value="#65E007">초록</option>
+            <option value="#E10101">
+              빨강
+            </option>
+            <option value="#E05B07">
+              주황
+            </option>
+            <option value="#65E007">
+              초록
+            </option>
           </select>
         </fieldset>
         <textarea cols="30" rows="5"></textarea>
