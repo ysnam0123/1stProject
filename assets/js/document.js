@@ -1,15 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 처음 화면 구성
-  // 문서들을 눌러야만 editmode로 전환
-  const container = document.querySelector('.container');
-  const docTitles = document.querySelectorAll('.projectListBox .docTitle');
-
-  docTitles.forEach((doc) => {
-    doc.addEventListener('click', () => {
-      container.classList.add('editmode');
-    });
-  });
-
   // 모달 열고 닫기만
   const newProjectBtn = document.querySelector('.newProject');
   const newDocModal = document.querySelector('.newDocModal');
@@ -109,6 +98,58 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 드롭 다운 메뉴의 수정 및 삭제 클릭 이벤트 처리
+    const menuOptions = projectMenuDropdown.querySelectorAll('.menuOption');
+    menuOptions.forEach((option) => {
+      option.addEventListener('click', (event) => {
+        const action = option.dataset.action;
+        if (action === 'edit') {
+          editProject(projectData.id);
+        } else if (action === 'delete') {
+          deleteProject(projectData.id);
+        }
+        projectMenuDropdown.classList.remove('active');
+      });
+    });
+
+    // api로 수정
+    function editProject(projectId) {
+      const newTitle = prompt('새 프로젝트 이름 : ');
+      if (newTitle && newTitle.trim()) {
+        // API 호출해서 title 수정
+        fetch(`https://kdt-api.fe.dev-cos.com/documents/${projectId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-username': 'jijijiji',
+          },
+          body: JSON.stringify({ title: newTitle }),
+        })
+          .then((response) => response.json())
+          .then((updatedProject) => {
+            // 프로젝트 목록 업데이트
+            loadProjectListHandler();
+          })
+          .catch((error) => console.error('수정 오류:', error));
+      }
+    }
+    // api로 삭제
+    function deleteProject(projectId) {
+      const confirmDelete = confirm('정말로 이 프로젝트를 삭제하시겠습니까?');
+      if (confirmDelete) {
+        fetch(`https://kdt-api.fe.dev-cos.com/documents/${projectId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-username': 'jijijiji',
+          },
+        })
+          .then(() => {
+            // 프로젝트 삭제 후 목록 갱신
+            loadProjectListHandler();
+          })
+          .catch((error) => console.error('삭제 오류:', error));
+      }
+    }
 
     const projectHeader = projectItem.querySelector('.projectHeader');
 
@@ -190,8 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
           console.error('하위 문서 불러오기 오류:', error);
         });
     }
-
-    // addDocBtn.addEventListener("click", addDocHandler);
     return projectItem;
   }
 
@@ -288,7 +327,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // 생성된 문서 리스트에 추가
         // 추가된 문서 포함하여 다시 불러오기
         console.log('📄 새 문서 생성됨:', docData);
-        loadSubDocs();
+        // 수정사항
+        loadSubDocs({ id: projectId }); // 최소한 id만 넘겨도 OK
+        // loadSubDocs();
       })
       .catch((error) => {
         console.error(error);
@@ -319,6 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 문서 생성 후 편집기 열기
         openEditor(docData.id, type);
+        loadSubDocs({ id: projectId });
       })
       .catch((error) => console.error('문서 생성 오류:', error));
   }
@@ -328,10 +370,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.docDropdown').forEach((menu) => {
       menu.classList.remove('active');
     });
+    document.querySelectorAll('.projectMenuDropdown').forEach((menu) => {
+      menu.classList.remove('active');
+    });
   });
 
   // 문서 클릭 시 type 에 따라 편집기 나오도록
   function openEditor(docId, type) {
+    document.body.dataset.currentDocId = docId;
+    document.body.dataset.currentDocType = type;
+
     const basicDocView = document.querySelector('.basicDocView');
     const codeShareView = document.querySelector('.codeShareView');
     const container = document.querySelector('.container');
@@ -343,13 +391,108 @@ document.addEventListener('DOMContentLoaded', () => {
     basicDocView.classList.remove('active');
     codeShareView.classList.remove('active');
 
+    // 추가
+    // 에디터의 타이틀 영역 가져오기
+    const editorTitle = document.querySelector('.docTitleBox .docTitle');
+    if (editorTitle) {
+      editorTitle.dataset.docId = docId;
+      editorTitle.dataset.docType = type;
+    }
+
     if (type === 'default') {
       basicDocView.classList.add('active');
+      // 수정된 부분
+      loadDocumentData(docId, type); // 기본 문서 로드
     } else if (type === 'code') {
       codeShareView.classList.add('active');
+      loadDocumentData(docId, type); // 코드 공유 문서 로드
     }
   }
 
+  function loadDocument(doc) {
+    const type = doc.type;
+    document.body.dataset.currentDocId = doc.id;
+    document.body.dataset.currentDocType = type;
+
+    if (type === 'default') {
+      document.querySelector('.docEditPage').innerHTML = doc.content;
+    } else {
+      const code = JSON.parse(doc.content || '{}');
+      document.querySelector('.codeInput.html').textContent = code.html;
+      document.querySelector('.codeInput.css').textContent = code.css;
+      document.querySelector('.codeInput.javascript').textContent = code.js;
+    }
+  }
+
+  //
+  function loadDocumentData(docId, type) {
+    fetch(`https://kdt-api.fe.dev-cos.com/documents/${docId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-username': 'jijijiji',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // 문서 이름 공통 적용
+        const titleEls = document.querySelectorAll('.editor .docTitle');
+        titleEls.forEach((el) => {
+          el.textContent = data.title || '제목 없음';
+        });
+
+        if (type === 'default') {
+          // 기본 문서 표시
+          document.querySelector('.basicDocView').style.display = 'block';
+          document.querySelector('.codeShareView').style.display = 'none';
+
+          const contentArea = document.querySelector(
+            '.basicDocView .docEditPage'
+          );
+          contentArea.innerHTML = data.content || '';
+        } else if (type === 'code') {
+          // 코드 문서 표시
+          document.querySelector('.basicDocView').style.display = 'none';
+          document.querySelector('.codeShareView').style.display = 'block';
+
+          // JSON 파싱
+          let codeContent = { html: '', css: '', js: '' };
+          try {
+            codeContent = JSON.parse(data.content || '{}');
+          } catch (err) {
+            console.error('코드 문서 내용 파싱 실패', err);
+          }
+          document.querySelector('.codeInput.html').value = codeContent.html;
+          document.querySelector('.codeInput.css').value = codeContent.css;
+          document.querySelector('.codeInput.javascript').value =
+            codeContent.js;
+
+          // 미리보기 iframe 렌더링
+          const iframe = document.querySelector('.codeOutput');
+          const iframeDoc =
+            iframe.contentDocument || iframe.contentWindow.document;
+          iframeDoc.open();
+          iframeDoc.write(`
+            <!DOCTYPE html>
+            <html lang="ko">
+              <head>
+                <style>${codeContent.css || ''}</style>
+              </head>
+              <body>
+                ${codeContent.html || ''}
+                <script>${codeContent.js || ''}<\/script>
+              </body>
+            </html>
+          `);
+          iframeDoc.close();
+        }
+      })
+      .catch((err) => {
+        console.error('문서 로딩 실패', err);
+        alert('문서를 불러오는 중 오류가 발생했습니다.');
+      });
+  }
+
+  // toolbar 부분
   function applyStyle(button) {
     const selection = window.getSelection();
     if (!selection.rangeCount) return; // 선택한 텍스트가 없으면 종료
@@ -401,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
       newNode.style.fontFamily = 'monospace';
     }
 
-    // 📌 newNode를 선택 영역에 적용하기
+    // newNode를 선택 영역에 적용하기
     if (newNode) {
       try {
         range.surroundContents(newNode); // 기존 텍스트를 유지하며 스타일만 추가
@@ -447,6 +590,240 @@ document.addEventListener('DOMContentLoaded', () => {
   tabs[0].classList.add('active');
   editors.forEach((editor, index) => {
     editor.style.display = index === 0 ? 'block' : 'none';
+  });
+
+  // 기본 문서에서 입력된 내용 가져오기
+  const basicDocContent = document.querySelector('.docEditPage');
+  basicDocContent.addEventListener('input', () => {
+    console.log('기본 문서 입력 내용:', basicDocContent.innerHTML);
+  });
+
+  // 코드 공유 문서에서 입력된 HTML, CSS, JS 코드 가져오기
+  const htmlCodeInput = document.querySelector('.codeInput.html');
+  const cssCodeInput = document.querySelector('.codeInput.css');
+  const jsCodeInput = document.querySelector('.codeInput.javascript');
+
+  htmlCodeInput.addEventListener('input', () => {
+    console.log('HTML 코드 입력 내용:', htmlCodeInput.innerHTML);
+  });
+
+  cssCodeInput.addEventListener('input', () => {
+    console.log('CSS 코드 입력 내용:', cssCodeInput.innerHTML);
+  });
+
+  jsCodeInput.addEventListener('input', () => {
+    console.log('JavaScript 코드 입력 내용:', jsCodeInput.innerHTML);
+  });
+
+  function getCodeEditorContent() {
+    return JSON.stringify({
+      html: document.querySelector('.codeInput.html').textContent,
+      css: document.querySelector('.codeInput.css').textContent,
+      js: document.querySelector('.codeInput.javascript').textContent,
+    });
+  }
+
+  // 문서 편집 후 저장 기능
+  // function saveDocument(docId, type) {
+  //   const title = document.querySelector(".editor .docTitle").value;
+
+  //   let content;
+  //   if (type === "default") {
+  //     content = document.querySelector(".docEditPage").innerHTML;
+  //   } else {
+  //     content = JSON.stringify({
+  //       html: document.querySelector(".codeInput.html").textContent,
+  //       css: document.querySelector(".codeInput.css").textContent,
+  //       js: document.querySelector(".codeInput.javascript").textContent,
+  //     });
+  //   }
+
+  //   fetch(`https://kdt-api.fe.dev-cos.com/documents/${docId}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "x-username": "jijijiji",
+  //     },
+  //     body: JSON.stringify({
+  //       title,
+  //       content,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log("문서 저장 완료", data);
+  //     })
+  //     .catch((err) => {
+  //       console.error("문서 저장 실패:", err);
+  //     });
+  // }
+  const editor = document.querySelector('.editor');
+
+  editor.addEventListener(
+    'input',
+    debounce(async () => {
+      const updatedContent = editor.innerHTML;
+      const updatedTitle = document.querySelector(
+        '.docTitleBox .docTitle'
+      ).value;
+
+      if (!currentDocId) return;
+
+      try {
+        await fetch(
+          `https://kdt-api.fe.dev-cos.com/documents/${currentDocId}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-username': 'jijijiji',
+            },
+            body: JSON.stringify({
+              title: updatedTitle,
+              content: updatedContent,
+            }),
+          }
+        );
+        console.log('자동 저장 완료');
+      } catch (err) {
+        console.error('자동 저장 실패:', err);
+      }
+    }, 1000)
+  );
+
+  // 자동 저장
+  // let autoSaveTimeout;
+
+  // document.querySelector(".docEditPage").addEventListener("input", () => {
+  //   clearTimeout(autoSaveTimeout);
+  //   autoSaveTimeout = setTimeout(() => {
+  //     const docId = document.body.dataset.currentDocId;
+  //     const type = document.body.dataset.currentDocType;
+  //     saveDocument(docId, type);
+  //   }, 2000); // 2초 후 자동 저장
+  // });
+  function debounce(fn, delay) {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+  }
+
+  // 문서 부분 드롭다운중
+  document.addEventListener('click', (e) => {
+    const docMenu = e.target.closest('.docMenu');
+
+    // docMenu 클릭 시 드롭 다운 열기
+    if (docMenu) {
+      const dropdown = docMenu.querySelector('.docDropdown');
+      dropdown.classList.toggle('active');
+      e.stopPropagation(); // 외부 클릭 이벤트 차단
+      return;
+    }
+    // 외부 클릭 시 드롭다운 닫기
+    document.querySelectorAll('.docDropdown.active').forEach((dropdown) => {
+      dropdown.classList.remove('active');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    const dropdownItem = e.target.closest('.docDropdown li');
+    if (!dropdownItem) return;
+
+    const action = dropdownItem.classList.contains('editTitleBtn')
+      ? 'edit'
+      : dropdownItem.classList.contains('deleteDocBtn')
+      ? 'delete'
+      : null;
+
+    if (!action) return;
+
+    // 추가 수정
+    // ⭐ 우선 editor에서 클릭한 경우를 먼저 확인
+    const editorTitle = document.querySelector('.docTitleBox .docTitle');
+    const docId = editorTitle?.dataset?.docId;
+    if (!docId) {
+      console.warn('문서 ID를 찾을 수 없습니다.');
+      return;
+    }
+
+    // const docItem = dropdownItem.closest(".docItem");
+    // const docId = docItem.dataset.docId;
+
+    if (action === 'edit') {
+      // updateDocumentTitle(editorTitle, docId);
+      updateDocumentTitle(docId, editorTitle);
+    } else if (action === 'delete') {
+      deleteDocument(editorTitle, docId);
+    }
+  });
+
+  function updateDocumentTitle(docId, docItem) {
+    const newTitle = prompt('새 문서의 제목을 입력 : ', docItem.textContent);
+
+    if (!newTitle) return;
+
+    fetch(`https://kdt-api.fe.dev-cos.com/documents/${docId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-username': 'jijijiji',
+      },
+      body: JSON.stringify({ title: newTitle }),
+    })
+      .then((res) => res.json())
+      .then((updatedDoc) => {
+        // 제목 업뎃
+        docItem.textContent = updatedDoc.title;
+      })
+      .catch((err) => console.error('문서 제목 변경 실패:', err));
+  }
+
+  function deleteDocument(docItem, docId) {
+    if (!confirm('이 문서를 삭제하시겠습니까?')) return;
+
+    fetch(`https://kdt-api.fe.dev-cos.com/documents/${docId}`, {
+      method: 'DELETE',
+      headers: {
+        'x-username': 'jijijiji',
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          // 문서 제목만 삭제하고 편집 영역 초기화
+          docItem.textContent = '';
+
+          // editmode 해제 및 notYet 화면 표시
+          const container = document.querySelector('.container');
+          container.classList.remove('editmode');
+        } else {
+          alert('문서 삭제 실패');
+        }
+      })
+      .catch((err) => console.error('문서 삭제 오류:', err));
+  }
+
+  // 문서 아이템 클릭 시
+  document.querySelectorAll('.docList .docTitle').forEach((item) => {
+    item.addEventListener('click', async (e) => {
+      const docId = e.currentTarget.dataset.id;
+      try {
+        const res = await fetch(
+          `https://kdt-api.fe.dev-cos.com/documents/${docId}`
+        );
+        const data = await res.json();
+
+        // 제목과 내용 세팅
+        document.querySelector('.editor .docTitle').value = data.title;
+        document.querySelector('.editor .docEditPage').innerHTML = data.content;
+
+        // 현재 문서 ID 저장 (자동 저장용)
+        currentDocId = docId;
+      } catch (err) {
+        console.error('문서 불러오기 실패:', err);
+      }
+    });
   });
 
   // 프로젝트 목록 불러오기 실행

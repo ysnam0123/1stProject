@@ -19,6 +19,16 @@
     <!-- js -->
     <script src="./assets/js/DocMate.js"></script>
     <script src="./assets/js/document.js"></script>
+    <!-- code share -->
+    <link rel="stylesheet" href="./assets/css/codeshare.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
   </head>
   <body>
     <div class="sidebarContainer">
@@ -73,7 +83,7 @@
             fill="#FFFB00"
           />
         </svg>
-  
+
         <!-- 작은 사이드바 로고 -->
         <img
           src="./assets/images/ms_logo.svg"
@@ -121,9 +131,9 @@
                 fill="currentColor"
               />
             </svg>
-  
+
             <p class="btn_text">캘린더</p>
-  
+
             <!-- 작은 캘린더 -->
             <svg
               viewBox="0 0 60 60"
@@ -166,9 +176,9 @@
                 stroke-width="5"
               />
             </svg>
-  
+
             <p class="btn_text">문서</p>
-  
+
             <!-- 작은 문서 아이콘 -->
             <svg
               viewBox="0 0 60 60"
@@ -211,7 +221,7 @@
                 fill="currentColor"
               />
             </svg>
-  
+
             <!-- 작은 도움 아이콘 -->
             <svg
               viewBox="0 0 60 60"
@@ -224,7 +234,7 @@
                 fill="currentColor"
               />
             </svg>
-  
+
             <p class="btn_text">help</p>
           </div>
         </div>
@@ -234,9 +244,7 @@
           <i class="searchIcon">검색아이콘</i>
           <input type="text" placeholder="search" class="docSearch" />
         </div>
-        <div class="projectListBox">
-
-        </div>
+        <div class="projectListBox"></div>
         <div class="newProject">
           <i class="plus">추가아이콘</i>
           <p>새로운 프로젝트 생성</p>
@@ -364,6 +372,11 @@
             <h2 class="docTitle">문서이름</h2>
             <div class="docMenu">
               <span class="material-symbols-outlined">more_horiz</span>
+              <!-- 드롭다운 메뉴 -->
+              <ul class="docDropdown">
+                <li class="edit editTitleBtn">제목 수정</li>
+                <li class="delete deleteDocBtn">문서 삭제</li>
+              </ul>
             </div>
           </div>
           <div class="docToolbar">
@@ -379,22 +392,42 @@
             <button class="docTool formatHeader4" value="4">
               <span>H4</span>
             </button>
-            <button  data-command="bold" class="docTool formatBold" value="5">
+            <button data-command="bold" class="docTool formatBold" value="5">
               <span class="material-symbols-outlined">format_bold</span>
             </button>
-            <button data-command="italic" class="docTool formatItalic" value="6">
+            <button
+              data-command="italic"
+              class="docTool formatItalic"
+              value="6"
+            >
               <span class="material-symbols-outlined">format_italic</span>
             </button>
-            <button data-command="underline" class="docTool formatUnderLine" value="7">
+            <button
+              data-command="underline"
+              class="docTool formatUnderLine"
+              value="7"
+            >
               <span class="material-symbols-outlined">format_underlined</span>
             </button>
-            <button data-command="justifyLeft" class="docTool formatAlignLeft" value="8">
+            <button
+              data-command="justifyLeft"
+              class="docTool formatAlignLeft"
+              value="8"
+            >
               <span class="material-symbols-outlined">format_align_left</span>
             </button>
-            <button data-command="justifyCenter" class="docTool formatAlignCenter" value="9">
+            <button
+              data-command="justifyCenter"
+              class="docTool formatAlignCenter"
+              value="9"
+            >
               <span class="material-symbols-outlined">format_align_center</span>
             </button>
-            <button data-command="justifyRight" class="docTool formatAlignRight" value="10">
+            <button
+              data-command="justifyRight"
+              class="docTool formatAlignRight"
+              value="10"
+            >
               <span class="material-symbols-outlined">format_align_right</span>
             </button>
             <button class="docTool formatListBulleted" value="11">
@@ -423,6 +456,11 @@
             <h2 class="docTitle">문서이름</h2>
             <div class="docMenu">
               <span class="material-symbols-outlined">more_horiz</span>
+              <!-- 드롭다운 메뉴 -->
+              <ul class="docDropdown">
+                <li class="editTitleBtn">제목 수정</li>
+                <li class="deleteDocBtn">문서 삭제</li>
+              </ul>
             </div>
           </div>
           <!-- codeTab -->
@@ -449,7 +487,7 @@
             <iframe class="codeOutput"></iframe>
           </div>
           <!-- comment -->
-          <div class="commentSection">
+          <!-- <div class="commentSection">
             <h4>댓글</h4>
             <div class="commentWrapper">
               <div class="addCommentBox">
@@ -463,7 +501,7 @@
                 ></input>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
