@@ -1,19 +1,16 @@
 /* document */
 .sidebarContainer {
   display: flex;
-  gap: 1px;
+  gap: 6px;
 }
 .subSidebar {
   background-color: var(--bg-color);
   max-width: 280px;
   padding: 20px;
   border-radius: 0 20px 20px 0;
-  border-left: 1px solid var(--border);
-  border: none;
   position: relative;
-  color: var(--text-color);
 }
-.docSearchForm {
+.subSidebar .docSearchForm {
   border: 1px solid var(--rightGray);
   border-radius: 10px;
   max-width: 250px;
@@ -25,25 +22,29 @@
   padding: 12px;
   transition: border 0.5s;
 }
-
-.docSearch {
-  height: 30px;
-  padding: 5px 0px;
-  font-size: 15px;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  margin-left: 10px;
-  border: none;
+.subSidebar .docSearchForm:focus-within {
+  border-color: var(--blue1);
 }
-.docSearch:focus {
-  outline: none;
-}
-.searchIcon {
+.subSidebar .docSearchForm .searchIcon {
   background-image: url(../images/search_icon.svg);
   background-repeat: no-repeat;
   width: 20px;
   height: 20px;
   text-indent: -99999999px;
+}
+.subSidebar .docSearchForm:focus-within .searchIcon {
+  filter: invert(31%) sepia(94%) saturate(1249%) hue-rotate(209deg)
+    brightness(97%) contrast(101%);
+}
+.subSidebar .docSearchForm .docSearch {
+  margin-left: 10px;
+  border: none;
+}
+.subSidebar .docSearchForm .docSearch:focus {
+  outline: none;
+}
+.subSidebar .docSearchForm .docSearch:focus::placeholder {
+  color: transparent;
 }
 
 /* projectListBox */
@@ -54,7 +55,7 @@
   height: 82vh;
 }
 /* dropdown으로 문서옵션 선택 */
-.docDropdown {
+.projectListBox .docDropdown {
   position: absolute;
   left: calc(100% - 130px);
   top: 20px;
@@ -66,7 +67,7 @@
   border: 1px solid var(--darkGray);
   display: none;
 }
-.docDropdown.active {
+.projectListBox .docDropdown.active {
   display: block;
 }
 .projectItem {
@@ -221,7 +222,7 @@
   font-size: 0.88rem;
 }
 
-/* 새 프로젝트 만드는 작은 모달창 */
+/* newDocModal */
 .container {
   position: relative;
   display: block;
@@ -239,7 +240,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--bg-color);
+  background-color: rgb(255, 255, 255);
   border: none;
   display: none;
 }
@@ -515,116 +516,4 @@
 }
 .editor .docEditContent .docEditLayout .docEditPage ol.custom-list li {
   list-style-type: decimal;
-}
-/* codeShareView */
-.codeShareView.active {
-  display: grid;
-}
-.codeShareView {
-  grid-template-columns: 3fr 1fr;
-  grid-template-areas:
-    'docTitle docTitle'
-    'codeTab commentSection'
-    'codeResult commentSection';
-  grid-template-rows: auto auto 1fr;
-}
-.codeShareView .docTitleBox {
-  grid-area: docTitle;
-}
-.codeShareView .codeTab {
-  grid-area: codeTab;
-}
-.codeShareView .codeTab ul {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.codeShareView .codeTab .codeTabMenu {
-  padding: 10px 15px;
-  cursor: pointer;
-}
-.codeShareView .codeTab .codeTabMenu.active {
-  color: var(--blue1);
-  font-weight: bold;
-  border-bottom: 2px solid var(--blue1);
-}
-.codeShareView .codeTab .codeEditor {
-  display: none;
-  padding: 10px;
-}
-.codeShareView .codeTab .codeEditor.active {
-  display: block;
-}
-.codeShareView .codeTab .codeEditor pre {
-  overflow: auto;
-  padding: 10px;
-  font-family: monospace;
-  border-radius: 5px;
-  background-color: #e9e9e9;
-  height: 300px;
-}
-.codeShareView .codeTab .codeEditor .codeInput {
-  white-space: pre;
-  outline: none;
-  width: 100%;
-}
-.codeShareView .codeResult {
-  flex-grow: 1;
-  grid-area: codeResult;
-  border: 1px solid var(--darkGray);
-  padding: 10px;
-}
-.codeShareView .commentSection {
-  grid-area: commentSection;
-  height: 90vh;
-  padding: 10px;
-}
-.codeShareView .commentSection h4 {
-  margin-bottom: 10px;
-}
-.codeShareView .commentSection .commentWrapper {
-  background-color: var(--blue4);
-  border-radius: 10px;
-  width: 100%;
-  height: 98%;
-  position: relative;
-}
-.codeShareView .commentSection .commentWrapper .addCommentBox {
-  background-color: var(--bg-color);
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.codeShareView .commentSection .commentWrapper .addCommentBox .addCommentTitle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 90%;
-  margin: 0 auto;
-}
-.codeShareView
-  .commentSection
-  .commentWrapper
-  .addCommentBox
-  .addCommentTitle
-  .addCommentBtn {
-  background-color: var(--blue1);
-  color: var(--bg-color);
-  outline: none;
-  border: none;
-  padding: 5px 1rem;
-  border-radius: 10px;
-}
-.codeShareView .commentSection .commentWrapper .addCommentBox .commentInput {
-  width: 90%;
-  height: 50px;
-  margin: 10px auto;
-  border: 1px solid var(--darkGray);
-  border-radius: 10px;
-  display: block;
 }

@@ -7,6 +7,7 @@
     <!-- css -->
     <link rel="stylesheet" href="./assets/css/reset.css" />
     <link rel="stylesheet" href="./assets/css/root.css" />
+    <!-- <link rel="stylesheet" href="./assets/css/main.css" /> -->
     <link rel="stylesheet" href="./assets/css/DocMate.css" />
     <link rel="stylesheet" href="./assets/css/document.css" />
     <link rel="website icon" type="svg" href="./assets/images/ms_logo.svg" />
@@ -18,6 +19,16 @@
     <!-- js -->
     <script src="./assets/js/DocMate.js"></script>
     <script src="./assets/js/document.js"></script>
+    <!-- code share -->
+    <link rel="stylesheet" href="./assets/css/codeshare.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
   </head>
   <body>
     <div class="sidebarContainer">
@@ -72,7 +83,7 @@
             fill="#FFFB00"
           />
         </svg>
-  
+
         <!-- 작은 사이드바 로고 -->
         <img
           src="./assets/images/ms_logo.svg"
@@ -120,9 +131,9 @@
                 fill="currentColor"
               />
             </svg>
-  
+
             <p class="btn_text">캘린더</p>
-  
+
             <!-- 작은 캘린더 -->
             <svg
               viewBox="0 0 60 60"
@@ -165,9 +176,9 @@
                 stroke-width="5"
               />
             </svg>
-  
+
             <p class="btn_text">문서</p>
-  
+
             <!-- 작은 문서 아이콘 -->
             <svg
               viewBox="0 0 60 60"
@@ -210,7 +221,7 @@
                 fill="currentColor"
               />
             </svg>
-  
+
             <!-- 작은 도움 아이콘 -->
             <svg
               viewBox="0 0 60 60"
@@ -223,7 +234,7 @@
                 fill="currentColor"
               />
             </svg>
-  
+
             <p class="btn_text">help</p>
           </div>
         </div>
@@ -233,9 +244,7 @@
           <i class="searchIcon">검색아이콘</i>
           <input type="text" placeholder="search" class="docSearch" />
         </div>
-        <div class="projectListBox">
-
-        </div>
+        <div class="projectListBox"></div>
         <div class="newProject">
           <i class="plus">추가아이콘</i>
           <p>새로운 프로젝트 생성</p>
@@ -352,7 +361,7 @@
       </div>
 
       <div class="notYet">
-        <h2 class="notYetText">문서가 없습니다</h2>
+        <h2 class="notYetText">문서를 작성해보세요</h2>
       </div>
 
       <div class="editor">
@@ -378,22 +387,42 @@
             <button class="docTool formatHeader4" value="4">
               <span>H4</span>
             </button>
-            <button  data-command="bold" class="docTool formatBold" value="5">
+            <button data-command="bold" class="docTool formatBold" value="5">
               <span class="material-symbols-outlined">format_bold</span>
             </button>
-            <button data-command="italic" class="docTool formatItalic" value="6">
+            <button
+              data-command="italic"
+              class="docTool formatItalic"
+              value="6"
+            >
               <span class="material-symbols-outlined">format_italic</span>
             </button>
-            <button data-command="underline" class="docTool formatUnderLine" value="7">
+            <button
+              data-command="underline"
+              class="docTool formatUnderLine"
+              value="7"
+            >
               <span class="material-symbols-outlined">format_underlined</span>
             </button>
-            <button data-command="justifyLeft" class="docTool formatAlignLeft" value="8">
+            <button
+              data-command="justifyLeft"
+              class="docTool formatAlignLeft"
+              value="8"
+            >
               <span class="material-symbols-outlined">format_align_left</span>
             </button>
-            <button data-command="justifyCenter" class="docTool formatAlignCenter" value="9">
+            <button
+              data-command="justifyCenter"
+              class="docTool formatAlignCenter"
+              value="9"
+            >
               <span class="material-symbols-outlined">format_align_center</span>
             </button>
-            <button data-command="justifyRight" class="docTool formatAlignRight" value="10">
+            <button
+              data-command="justifyRight"
+              class="docTool formatAlignRight"
+              value="10"
+            >
               <span class="material-symbols-outlined">format_align_right</span>
             </button>
             <button class="docTool formatListBulleted" value="11">
@@ -417,53 +446,75 @@
           </div>
         </div>
         <!-- 코드 공유 문서 페이지 -->
-        <div class="codeShareView">
-          <div class="docTitleBox">
-            <h2 class="docTitle">문서이름</h2>
-            <div class="docMenu">
-              <span class="material-symbols-outlined">more_horiz</span>
+        <div class="codeShareContainer">
+          <div class="codeShareView">
+            <div class="docTitleBox">
+              <h2 class="docTitle">문서이름</h2>
+              <div class="docMenu">
+                <span class="material-symbols-outlined">more_horiz</span>
+              </div>
             </div>
-          </div>
-          <!-- codeTab -->
-          <div class="codeTab">
-            <ul>
-              <li class="codeTabMenu" data-lang="html">HTML</li>
-              <li class="codeTabMenu" data-lang="css">CSS</li>
-              <li class="codeTabMenu" data-lang="javascript">Javascript</li>
-            </ul>
+            <!-- codeTab -->
+            <div class="codeTab">
+              <ul>
+                <li id="HTMLTab" class="codeTabMenu" data-lang="html">HTML</li>
+                <li id="CSSTab" class="codeTabMenu" data-lang="css">CSS</li>
+                <li id="JsTab" class="codeTabMenu" data-lang="javascript">
+                  Javascript
+                </li>
+                <button class="executeCode">코드 실행</button>
+              </ul>
+            </div>
 
-            <div class="codeEditor html">
-              <pre><code contenteditable="true" class="codeInput html"></code></pre>
+            <div
+              id="html-editor"
+              class="editor-container active codeInput html"
+            >
+              <textarea id="html-code"></textarea>
             </div>
-            <div class="codeEditor css">
-              <pre><code contenteditable="true" class="codeInput css"></code></pre>
+            <div id="css-editor" class="editor-container codeInput css">
+              <textarea id="css-code"></textarea>
             </div>
-            <div class="codeEditor javascript">
-              <pre><code contenteditable="true" class="codeInput javascript"></code></pre>
+            <div id="js-editor" class="editor-container codeInput javascript">
+              <textarea id="js-code"></textarea>
             </div>
-          </div>
 
-          <!-- codeResult -->
-          <div class="codeResult">
+            <!-- codeResult -->
+            <div id="output"></div>
+            <div
+              id="iframe-container"
+              style="border: 1px solid #ccc; margin-top: 20px"
+            >
+              <iframe
+                id="output-frame"
+                style="width: 100%; height: 400px"
+              ></iframe>
+            </div>
+
+            <!-- <div class="codeResult">
             <iframe class="codeOutput"></iframe>
+          </div> -->
+            <!-- 댓글 공간 -->
           </div>
-          <!-- comment -->
           <div class="commentSection">
             <h4>댓글</h4>
-            <div class="commentWrapper">
-              <div class="addCommentBox">
-                <div class="addCommentTitle">
-                  <span>댓글 입력</span>
-                  <button class="addCommentBtn">추가</button>
-                </div>
-                <input type="text"
-                  class="commentInput"
-                  placeholder="댓글을 입력하세요"
-                ></input>
+
+            <div class="comments"></div>
+            <div class="addCommentBox">
+              <div class="addCommentTitle">
+                <span>댓글 입력</span>
+                <button class="addCommentBtn">추가</button>
               </div>
+              <textarea
+                class="commentInput"
+                placeholder="댓글을 입력하세요"
+                cols="30"
+                rows="10"
+              ></textarea>
             </div>
           </div>
         </div>
+        <!-- 여기까지 코드 공유 문서 -->
       </div>
 
       <!-- 프로젝트 생성 모달 -->
