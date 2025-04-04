@@ -1,16 +1,19 @@
 /* document */
 .sidebarContainer {
   display: flex;
-  gap: 6px;
+  gap: 1px;
 }
 .subSidebar {
-  background-color: var(--light-bg-color);
-  max-width: 280px;
+  background-color: var(--bg-color);
+  max-width: 260px;
   padding: 20px;
   border-radius: 0 20px 20px 0;
+  border-left: 1px solid var(--border);
+  border: none;
   position: relative;
+  color: var(--text-color);
 }
-.subSidebar .docSearchForm {
+.docSearchForm {
   border: 1px solid var(--rightGray);
   border-radius: 10px;
   max-width: 250px;
@@ -22,29 +25,25 @@
   padding: 12px;
   transition: border 0.5s;
 }
-.subSidebar .docSearchForm:focus-within {
-  border-color: var(--blue1);
+
+.docSearch {
+  height: 30px;
+  padding: 5px 0px;
+  font-size: 15px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin-left: 10px;
+  border: none;
 }
-.subSidebar .docSearchForm .searchIcon {
+.docSearch:focus {
+  outline: none;
+}
+.searchIcon {
   background-image: url(../images/search_icon.svg);
   background-repeat: no-repeat;
   width: 20px;
   height: 20px;
   text-indent: -99999999px;
-}
-.subSidebar .docSearchForm:focus-within .searchIcon {
-  filter: invert(31%) sepia(94%) saturate(1249%) hue-rotate(209deg)
-    brightness(97%) contrast(101%);
-}
-.subSidebar .docSearchForm .docSearch {
-  margin-left: 10px;
-  border: none;
-}
-.subSidebar .docSearchForm .docSearch:focus {
-  outline: none;
-}
-.subSidebar .docSearchForm .docSearch:focus::placeholder {
-  color: transparent;
 }
 
 /* projectListBox */
@@ -52,36 +51,41 @@
   margin-top: 20px;
 }
 /* dropdown으로 문서옵션 선택 */
-.projectListBox .docDropdown {
+.docDropdown {
   position: absolute;
   left: 85%;
   top: 19px;
   width: 180px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   z-index: 5;
   border: 1px solid var(--darkGray);
   display: none;
 }
-.projectListBox .docDropdown.active {
+.docDropdown.active {
   display: block;
 }
-.projectListBox .docDropdown .docOption {
+/* 기본문서 또는 코드문서 선택 */
+.docOption {
   padding: 10px 15px;
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
   transition: color 0.2s, background-color 0.2s;
+  border: 0.5px solid var(--border);
+  background: var(--bg-color);
 }
 /* .projectListBox .docDropdown .docOption span.material-symbols-outlined {
   transition: color 0.1s;
 } */
-.projectListBox .docDropdown .docOption:hover {
-  background: #f0f0f0;
+.docOption:hover {
   color: var(--blue2);
+  font-weight: 600;
 }
+
+/* 이 밑에 코드들은 어디에있는거지? */
 .projectFolder {
   margin-bottom: 10px;
   padding: 10px;
@@ -103,7 +107,7 @@
   margin-right: 12px;
   width: 20px;
   height: 20px;
-  background-image: url("../images/folder_icon.svg"); /* SVG 경로 */
+  background-image: url('../images/folder_icon.svg'); /* SVG 경로 */
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -127,7 +131,7 @@
   max-width: 150px;
 }
 .documentItem::before {
-  content: "";
+  content: '';
   width: 2px;
   height: 100%;
   position: absolute;
@@ -173,7 +177,7 @@
   width: 14px;
   height: 14px;
   border: none;
-  background-image: url("../images/plus_icon.svg");
+  background-image: url('../images/plus_icon.svg');
   background-repeat: no-repeat;
   background-color: transparent;
   background-position: center;
@@ -212,7 +216,7 @@
 .subSidebar .newProject .plus {
   width: 11px;
   height: 11px;
-  background-image: url("../images/plus_icon.svg");
+  background-image: url('../images/plus_icon.svg');
   background-repeat: no-repeat;
   text-indent: -99999999px;
 }
@@ -220,11 +224,11 @@
   font-size: 0.88rem;
 }
 
-/* newDocModal */
+/* 새 프로젝트 만드는 작은 모달창 */
 .container {
   position: relative;
 }
-.container .newDocModal {
+.newDocModal {
   width: 100%;
   height: 100%;
   z-index: 1000;
@@ -232,7 +236,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(255, 255, 255);
+  background-color: var(--bg-color);
   border: none;
   display: none;
 }
@@ -240,7 +244,7 @@
   display: block;
 }
 .container .newDocModal .docModalWrapper {
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   padding: 30px 20px;
   border-radius: 10px;
   width: 550px;
@@ -332,7 +336,7 @@
 }
 #projectModalAddMember {
   border: 1px solid var(--rightGray);
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   color: var(--rightGray);
   outline: none;
   padding: 10px 15px;
@@ -344,7 +348,7 @@
 }
 #projectModalAddMember:hover {
   background-color: var(--text-color);
-  color: var(--light-bg-color);
+  color: var(--bg-color);
 }
 #projectMember {
   margin-top: 5px;
@@ -358,7 +362,7 @@
   background-color: var(--blue1);
   outline: none;
   border: none;
-  color: var(--light-bg-color);
+  color: var(--bg-color);
   font-weight: 600;
   padding: 13px;
   width: 140px;
@@ -432,7 +436,7 @@
 .editor .docToolbar .docTool.formatUnderLine::before,
 .editor .docToolbar .docTool.formatAlignRight::before,
 .editor .docToolbar .docTool.formatListNumber::before {
-  content: "";
+  content: '';
   position: absolute;
   right: -2px;
   top: 50%;
@@ -451,7 +455,7 @@
   overflow: auto;
 }
 .editor .docEditContent .docEditLayout {
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   border-radius: 10px;
   width: 99%;
   height: 97%;
@@ -467,7 +471,7 @@
   overflow: auto;
 }
 .editor .docEditContent .docEditLayout .docEditPage h1 {
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
 }
 .editor .docEditContent .docEditLayout .docEditPage .bold {
   font-weight: bold;
@@ -514,9 +518,9 @@
 .codeShareView {
   grid-template-columns: 3fr 1fr;
   grid-template-areas:
-    "docTitle docTitle"
-    "codeTab commentSection"
-    "codeResult commentSection";
+    'docTitle docTitle'
+    'codeTab commentSection'
+    'codeResult commentSection';
   grid-template-rows: auto auto 1fr;
 }
 .codeShareView .docTitleBox {
@@ -581,7 +585,7 @@
   position: relative;
 }
 .codeShareView .commentSection .commentWrapper .addCommentBox {
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -605,7 +609,7 @@
   .addCommentTitle
   .addCommentBtn {
   background-color: var(--blue1);
-  color: var(--light-bg-color);
+  color: var(--bg-color);
   outline: none;
   border: none;
   padding: 5px 1rem;
