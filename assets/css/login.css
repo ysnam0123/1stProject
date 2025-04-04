@@ -1,0 +1,188 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease;
+}
+.invisible {
+  display: none;
+}
+.loginLogo {
+  margin-bottom: 30px;
+  width: 240px;
+  height: 130px;
+}
+.moveForward {
+  width: 30px;
+  position: absolute;
+  left: 30px;
+  top: 20px;
+  cursor: pointer;
+}
+.logo {
+  margin-bottom: 60px;
+  user-select: none;
+}
+.headerIconBox {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+}
+/* 라이트 다크 모드 토글 */
+.modeToggle {
+  display: flex;
+  align-items: center;
+  /* position: absolute;
+  right: 70px;
+  top: 10px; */
+}
+/* 토글 바 */
+.modeToggleBar {
+  color: var(--toggleBar-color);
+  width: 90px;
+  height: 40px;
+}
+/* 토글 원 */
+#toggleCircle {
+  display: flex;
+  width: 50px;
+  position: absolute;
+  left: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.toggleCircle:hover {
+  transform: scale(1.05);
+}
+.toggleCircle:active {
+  transition: 0.1s all ease;
+  opacity: 0.8;
+}
+.modeCircle {
+  color: var(--color-blue);
+  width: 30px;
+}
+/* 해 달 */
+.mode {
+  transition: all 0.3s ease;
+}
+.mode {
+  color: var(--white);
+  position: absolute;
+  left: 11%;
+  top: 20%;
+}
+.moon {
+  width: 18px;
+  color: black;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+}
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.inputText {
+  width: 350px;
+  height: 30px;
+  padding: 27px 15px 8px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: #cccccc 2px solid;
+}
+
+.inputText::placeholder {
+  color: #cccccc;
+}
+
+.inputIdBox,
+.inputPwBox {
+  position: relative;
+}
+.idLabel,
+.passwordLabel {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  color: #cccccc;
+  user-select: none;
+  transition: transform 0.3s ease;
+}
+
+.inputText:focus + .inputLabel,
+.inputText:not(:placeholder-shown) + .inputLabel {
+  transform: translateY(-10px);
+
+  font-size: 12px;
+  color: #0064ff;
+}
+.box {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #929292;
+  font-weight: 600;
+  gap: 100px;
+  user-select: none;
+}
+.rememberMeBox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.findBox {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.btnBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.submitBtn {
+  cursor: pointer;
+  width: 370px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  user-select: none;
+  transition: transform 0.2 ease;
+}
+.submitBtn:hover {
+  opacity: 0.9;
+}
+
+.signinBtn {
+  background-color: #0064ff;
+  color: white;
+}
+.signupBtn {
+  background-color: #cccccc;
+  color: white;
+}
+
+#rememberMe {
+  border-radius: 10px;
+}
+.submitBtn:active {
+  transform: scale(0.98);
+  opacity: 0.7;
+}

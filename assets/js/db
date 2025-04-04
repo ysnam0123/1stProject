@@ -1,0 +1,14 @@
+const obj ={
+  '20250321' : [{
+    'title' : 'title',
+    'startday' : '20250321',
+    'endday' : '20250325',
+    'color' : '#fff',
+  },{
+    'title' : 'title',
+    'startday' : '20250321',
+    'endday' : '20250325',
+    'color' : '#fff',
+  }]
+}
+//starday와 endday를 비교해서 ~일 별로 title, color 값만 넣어서 달력에 추가

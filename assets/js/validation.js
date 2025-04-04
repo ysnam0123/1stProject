@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailInput = document.getElementById('email');
   const emailDomainInput = document.getElementById('email-domain');
   const checkIdButton = document.querySelector('.check-btn');
+  let isIdChecked = false;
 
   // localStorage에서 등록된 아이디 목록 가져오기
   let registeredIds = JSON.parse(localStorage.getItem('registeredIds')) || [];
@@ -79,8 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   checkIdButton.addEventListener('click', () => {
-    let idPattern = /^[a-zA-Z0-9]{6,12}$/;
     const idValue = idInput.value.trim();
+    let idPattern = /^[a-zA-Z0-9]{6,12}$/;
+
+    isIdChecked = false;
+
     if (registeredIds.includes(idValue)) {
       showError(idInput, '이미 사용 중인 아이디입니다.');
     } else if (idValue === '') {
@@ -89,10 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
       clearError(idInput);
       alert('사용 가능한 아이디입니다.');
       idInput.classList.add('pass');
+      isIdChecked = true;
     }
   });
   idInput.addEventListener('input', () => {
     idInput.classList.remove('pass');
+    isIdChecked = false;
   });
 
   [
@@ -110,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', (event) => {
     let isValid = true;
 
+    // 입력값 유효성 검사
     [
       nameInput,
       idInput,
@@ -118,18 +125,32 @@ document.addEventListener('DOMContentLoaded', () => {
       emailInput,
       emailDomainInput,
     ].forEach((input) => {
-      validateInput(input);
       if (input.parentNode.querySelector('.error-message')?.textContent) {
         isValid = false;
       }
     });
 
+    if (!isIdChecked) {
+      showError(idInput, '아이디 중복확인을 하셔야 합니다.');
+      isValid = false;
+    }
+
     if (!isValid) {
       event.preventDefault(); // 폼 제출 방지
     } else {
-      // 회원가입 성공 시, 아이디를 저장하고 localStorage에 반영
-      registeredIds.push(idInput.value.trim());
-      localStorage.setItem('registeredIds', JSON.stringify(registeredIds));
+      const userData = {
+        name: nameInput.value.trim(),
+        id: idInput.value.trim(),
+        password: passwordInput.value.trim(), // 실제 환경에서는 암호화 필수
+        email: `${emailInput.value.trim()}@${emailDomainInput.value.trim()}`,
+      };
+
+      let registeredUsers =
+        JSON.parse(localStorage.getItem('registeredUsers')) || [];
+      registeredUsers.push(userData);
+      localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+
+      console.log(userData);
       alert('회원가입이 완료되었습니다.');
     }
   });
