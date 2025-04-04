@@ -373,6 +373,11 @@
             <h2 class="docTitle">문서이름</h2>
             <div class="docMenu">
               <span class="material-symbols-outlined">more_horiz</span>
+              <!-- 드롭다운 메뉴 -->
+              <ul class="docDropdown">
+                <li class="edit editTitleBtn">제목 수정</li>
+                <li class="delete deleteDocBtn">문서 삭제</li>
+              </ul>
             </div>
           </div>
           <div class="docToolbar">
@@ -447,24 +452,28 @@
           </div>
         </div>
         <!-- 코드 공유 문서 페이지 -->
-        <div class="codeShareContainer">
-          <div class="codeShareView">
-            <div class="docTitleBox">
-              <h2 class="docTitle">문서이름</h2>
-              <div class="docMenu">
-                <span class="material-symbols-outlined">more_horiz</span>
-              </div>
-            </div>
-            <!-- codeTab -->
-            <div class="codeTab">
-              <ul>
-                <li id="HTMLTab" class="codeTabMenu" data-lang="html">HTML</li>
-                <li id="CSSTab" class="codeTabMenu" data-lang="css">CSS</li>
-                <li id="JsTab" class="codeTabMenu" data-lang="javascript">
-                  Javascript
-                </li>
-                <button class="executeCode">코드 실행</button>
+        <div class="codeShareView">
+          <div class="docTitleBox">
+            <h2 class="docTitle">문서이름</h2>
+            <div class="docMenu">
+              <span class="material-symbols-outlined">more_horiz</span>
+              <!-- 드롭다운 메뉴 -->
+              <ul class="docDropdown">
+                <li class="editTitleBtn">제목 수정</li>
+                <li class="deleteDocBtn">문서 삭제</li>
               </ul>
+            </div>
+          </div>
+          <!-- codeTab -->
+          <div class="codeTab">
+            <ul>
+              <li class="codeTabMenu" data-lang="html">HTML</li>
+              <li class="codeTabMenu" data-lang="css">CSS</li>
+              <li class="codeTabMenu" data-lang="javascript">Javascript</li>
+            </ul>
+
+            <div class="codeEditor html">
+              <pre><code contenteditable="true" class="codeInput html"></code></pre>
             </div>
 
             <div
@@ -497,7 +506,9 @@
           </div> -->
             <!-- 댓글 공간 -->
           </div>
-          <!-- <div class="commentSection">
+          <!-- comment -->
+
+          <div class="commentSection">
             <h4>댓글</h4>
 
             <div class="comments"></div>
@@ -513,7 +524,7 @@
                 rows="10"
               ></textarea>
             </div>
-          </div> -->
+          </div>
         </div>
         <!-- 여기까지 코드 공유 문서 -->
       </div>
