@@ -5,7 +5,7 @@
 }
 .subSidebar {
   background-color: var(--bg-color);
-  max-width: 260px;
+  max-width: 280px;
   padding: 20px;
   border-radius: 0 20px 20px 0;
   border-left: 1px solid var(--border);
@@ -49,13 +49,16 @@
 /* projectListBox */
 .subSidebar .projectListBox {
   margin-top: 20px;
+  overflow-y: auto;
+  overflow-x: visible;
+  height: 82vh;
 }
 /* dropdown으로 문서옵션 선택 */
 .docDropdown {
   position: absolute;
-  left: 85%;
-  top: 19px;
-  width: 180px;
+  left: calc(100% - 130px);
+  top: 20px;
+  width: 130px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   background-color: var(--bg-color);
@@ -66,44 +69,24 @@
 .docDropdown.active {
   display: block;
 }
-/* 기본문서 또는 코드문서 선택 */
-.docOption {
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: color 0.2s, background-color 0.2s;
-  border: 0.5px solid var(--border);
-  background: var(--bg-color);
-}
-/* .projectListBox .docDropdown .docOption span.material-symbols-outlined {
-  transition: color 0.1s;
-} */
-.docOption:hover {
-  color: var(--blue2);
-  font-weight: 600;
-}
-
-/* 이 밑에 코드들은 어디에있는거지? */
-.projectFolder {
+.projectItem {
   margin-bottom: 10px;
   padding: 10px;
 }
-.folderHeader {
+.projectHeader {
   display: flex;
   align-items: center;
   cursor: pointer;
   font-weight: bold;
   position: relative;
 }
-.folderName {
+.projectName {
   width: 120px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.folderIcon {
+.projectIcon {
   margin-right: 12px;
   width: 20px;
   height: 20px;
@@ -114,12 +97,47 @@
   display: inline-block;
   text-indent: -9999px; /* 내부 텍스트 숨기기 */
 }
-.documentList {
+.projectDocs {
   margin: 10px 0 10px 11px;
   display: none;
   border-left: 2px solid var(--rightGray);
 }
-.documentItem {
+.projectMenu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.projectMenuDropdown {
+  position: absolute;
+  left: calc(100% - 130px);
+  top: 20px;
+  width: 130px;
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+  border: 1px solid var(--darkGray);
+  display: none;
+}
+.projectMenuDropdown.active {
+  display: block;
+}
+.projectMenuDropdown .menuOption,
+.projectListBox .docDropdown .docOption {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+.projectMenuDropdown .menuOption:hover,
+.projectListBox .docDropdown .docOption:hover {
+  background: #f0f0f0;
+  color: var(--blue2);
+}
+
+.docTitle {
   cursor: pointer;
   padding: 5px;
   margin-left: 15px;
@@ -130,7 +148,11 @@
   transition: color 0.3s;
   max-width: 150px;
 }
-.documentItem::before {
+.docTitle:hover {
+  color: var(--blue1);
+  font-weight: 700;
+}
+.docTitle::before {
   content: '';
   width: 2px;
   height: 100%;
@@ -138,38 +160,13 @@
   left: -17px;
   top: 0;
   background-color: var(--rightGray);
-  opacity: 0;
-  transition: opacity 0.5s ease, background-color 0.5s ease;
+  transition: background-color 0.5s ease;
 }
-.documentItem:hover {
-  color: var(--blue1);
-  font-weight: 700;
-}
-.documentItem:hover::before {
-  opacity: 1;
+.docTitle:hover::before {
   background-color: var(--blue1);
 }
-
-/* .downIcon {
-  width: 16px;
-  height: 10px;
-  background-image: url("../images/down_icon.svg");
-  background-repeat: no-repeat;
-  transition: transform 0.3s ease; /* 회전 애니메이션 */
-/* position: absolute;
-  right: 0;
-} */
-
-/* .downIcon.open {
-  transform: rotate(180deg); /* 열린 상태에서는 위쪽(▲) 방향 */
-/* } */
-/* 아코디언 추가 부분 */
-.docList {
-  display: none;
-  padding-left: 10px;
-}
 /* open클래스 추가되면 보이도록 */
-.projectItem.open .docList {
+.projectItem.open .projectDocs {
   display: block;
 }
 .addDocBtn {
@@ -227,8 +224,14 @@
 /* 새 프로젝트 만드는 작은 모달창 */
 .container {
   position: relative;
+  display: block;
 }
-.newDocModal {
+/* 수정추가 */
+.headerIconBox {
+  /* position: static; */
+  /* justify-content: flex-end; */
+}
+.container .newDocModal {
   width: 100%;
   height: 100%;
   z-index: 1000;
@@ -376,10 +379,12 @@
 
 /* .container .editor */
 .container .notYet {
-  display: block;
+  display: flex;
+  height: 100vh;
 }
 .container .notYet h2 {
   text-align: center;
+  margin: auto;
 }
 .container.editmode .notYet {
   display: none;
