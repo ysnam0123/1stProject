@@ -1,301 +1,456 @@
 @font-face {
-    font-family: 'Cafe24Meongi-B-v1.0';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-B-v1.0.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Cafe24Meongi-B-v1.0";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-B-v1.0.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px;
+.kanbanContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+  margin-bottom: 250px;
 }
 
 .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px;
-    margin-top: 50px;
-    margin-left: -20px;
-    margin-bottom: 20px;
-    background-color: transparent;
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  padding: 30px;
+  margin-top: 0px;
+  margin-left: -30px;
+  margin-bottom: 20px;
+  background-color: transparent;
 }
 
 .project-header {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    background-color: #fff;
-    width: 1400px;
-    padding: 25px 30px;
-    border-radius: 20px;
-    box-shadow: 0 2px 10px #cfcfcf;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #fff;
+  width: 1200px;
+  padding: 25px 30px 25px 30px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px #cfcfcf;
 }
 
 .dropdown-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    margin-right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.project-list {
+  position: absolute;
+  top: 160px;
+  left: 230px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  display: none;
+  z-index: 1000;
+}
+
+.project-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.project-btn:hover {
+  background: #eef;
+}
+
+.add-project {
+  color: #007bff;
+  font-weight: bold;
 }
 
 #project-name {
-    font-weight: bold;
-    font-size: 20px;
-    white-space: nowrap;
+  font-weight: bold;
+  font-size: 20px;
+  white-space: nowrap;
+  color: var(--black);
 }
 
 .add-board-btn {
-    background-color: #e7f0ff;
-    border: none;
-    color: #007bff;
-    width: 120px;
-    height: 50px;
-    padding: 12px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right:100px;
+  background-color: #e7f0ff;
+  border: none;
+  color: #007bff;
+  width: 120px;
+  height: 50px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 20px;
 }
 
 .columns {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 1200px;
+  display: flex;
+  /* justify-content: space-around; */
+  gap: 15px;
+  /* max-width: 1200px; */
 }
 
 .column {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 15px;
-    width: 250px;
-    min-height: 200px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  width: 250px;
+  min-height: 200px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: var(--black);
 }
 
 .column-title {
-    display: flex;
-    justify-content: space-between;
-    background: none;
-    border: none;
-    font-size: 18px;
-    margin-right: 0;
-    padding: 0;
+  display: flex;
+  justify-content: space-between; /* 변경 */
+  background: none;
+  border: none;
+  font-size: 18px;
+  margin-right: 0;
+  padding: 0;
 }
 
 .column-title button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    margin-right: 7px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin-right: 7px;
 }
 
 .column-title h3 {
-    font-size: 1em;
-    margin: 0;
-    font-weight: 700;
+  font-size: 1em;
+  margin: 0;
+  font-weight: 700;
 }
 
-.column-title > div {  
-    display: flex;
+.column-title > div {
+  display: flex;
 }
 
 .task-count {
-    font-size: 0.8em;
-    color: #222;
+  font-size: 0.8em;
+  color: #222;
 }
 
 .tasks {
-    min-height: 100px;
-    margin: 15px 0;
+  min-height: 100px;
+  margin: 15px 0;
+  display: grid;
+  align-content: start;
+  border-radius: 8px;
 }
 
 .task {
-    background-color: #ffffff;
-    padding: 30px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    cursor: grab;
-    word-break: break-word;
+  background-color: #ffffff;
+  padding: 30px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  cursor: grab;
+  word-break: break-word;
 }
 
 .task:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .task.dragging {
-    opacity: 0.5;
-    border: 2px dashed #777;
+  opacity: 0.5;
+  border: 2px dashed #777;
 }
 
 .task-input {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    padding: 30px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    word-break: break-word;
-    outline: none; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 30px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  word-break: break-word;
+  outline: none;
 }
 
 .task-input:empty::before {
-    content: attr(data-placeholder); 
-    color: #ccc;
+  content: attr(data-placeholder);
+  color: #ccc;
 }
 
 .add-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .add-button:hover {
-    background-color: #000000;
+  background-color: #000000;
 }
 
 .confirm-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
 }
 
 .confirm-modal[open] {
-    display: flex;
+  display: flex;
 }
 
 .confirm-modal form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
+.confirm-modal .confirm-modal__title {
+  margin-bottom: 1.2rem;
+}
+
+.confirm-modal .confirm-modal__message {
+  margin-bottom: 1rem;
+}
+
+ 강민님
+
 .confirm-modal .preview {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .confirm-modal button {
-    margin: 0 10px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: white;
+  margin: 0 10px;
+  padding: 15px 60px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
 }
 
 .confirm-modal #confirm {
-    background-color: #d32f2f;
+  background-color: #E53935;
 }
 
 .confirm-modal #cancel {
-    background-color: #777;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #222;
 }
 
-
-
 button[data-delete] i {
-    font-size: 0.9em; 
+  font-size: 0.9em;
 }
 
 .task {
-    position: relative; 
-    padding-left: 2.2em;
+  position: relative;
+  padding-left: 2.2em;
+  background-color: #ffffff;
 }
 
 .task::before {
-    content: "O";
-    font-family: 'Cafe24Meongi-B-v1.0';
-    font-size: 1.7em; 
-    position: absolute; 
-    left: 10px; 
-    top: 50%; 
-    transform: translateY(-50%); 
+  content: "O";
+  font-family: "Cafe24Meongi-B-v1.0";
+  font-size: 1.7em;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .task::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: calc(100% - 20px); 
-    height: 10px;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 20px);
+  height: 10px;
 }
 
 .delete-task-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: transparent;
-    border: none;
-    color: #888;
-    cursor: pointer;
-    opacity: 0; 
-    transition: opacity 0.3s ease;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .task:hover .delete-task-btn {
-    opacity: 1; 
+  opacity: 1;
 }
 
 .delete-task-btn:hover {
-    color: #333;
+  color: #333;
 }
 
-
-
-
-
-
-
-
-
-
 .test-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
 }
 
 .test-modal[open] {
-    display: flex;
+  display: flex;
 }
 
 .test-modal form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .test-modal button {
-    margin: 0 10px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: white;
+  margin: 0 10px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
 }
 
 .test-modal #cancel {
-    background-color: #777;
+  background-color: #777;
+}
+
+/* 새 프로젝트 만들기 모달창 */
+.new_project_wrapper {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 60px;
+  right: 60px;
+  background-color: var(--light-bg-color);
+}
+
+.newProjectModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1200px;
+  height: 700px;
+  padding: 40px 50px;
+  border: 3px solid black;
+  border-radius: 30px;
+  background-color: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999; /* 필요시 다른 요소보다 위에 오도록 */
+}
+/* 안내 제목 */
+.npTitle {
+  margin-right: auto;
+  margin: 0 auto 0 140px;
+  font-weight: 500;
+  font-size: 55px;
+  color: var(--light-text-black);
+}
+/* 안내 내용 */
+.npComment {
+  margin: 30px auto 0 140px;
+  font-weight: 500;
+  color: var(--light-text-darkGray);
+}
+/* input창 */
+.projectInput {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+#projectName {
+  margin-bottom: 30px;
+}
+.pjInput {
+  width: 900px;
+  height: 40px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+.projectInputLabel {
+  margin-bottom: 10px;
+}
+/* 팀원 추가 */
+.addMemberLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 30px;
+}
+.addMemberBtn {
+  margin-left: auto;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+/* 팀원 목록 */
+.memberBox {
+  width: 900px;
+  padding: 15px;
+  border: 3px solid #222;
+  border-radius: 10px;
+  height: 150px;
+}
+/* 생성 취소 버튼 */
+.newProjectBtnBox {
+  position: absolute;
+  right: 50px;
+  bottom: 30px;
+  display: flex;
+  gap: 20px;
+}
+.newProjectModalBtn {
+  width: 130px;
+  height: 45px;
+  font-size: 19px;
+  border-radius: 10px;
+  padding: 10px 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.newProjectModalBtn:hover {
+  opacity: 0.8;
+}
+.newProjectModalBtn:active {
+  transform: scale(0.95);
+}
+.newProjectOkay {
+  background-color: var(--color-blue);
+  color: var(--white);
 }
