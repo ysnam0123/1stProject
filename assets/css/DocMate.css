@@ -445,6 +445,7 @@ body {
   color: var(--text-darkGray);
   padding-bottom: 10px;
   line-height: 25px;
+  font-size: 20px;
 }
 /* input창 */
 .projectInput {

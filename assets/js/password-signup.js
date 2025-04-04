@@ -74,3 +74,20 @@ function changeMode() {
     toggleCircle.classList.add('lightMode');
   }
 }
+const btnCancel = document.querySelector('.btn-cancel');
+btnCancel.addEventListener('click', () => {
+  window.location.href = 'login.html';
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.forms['register'];
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // 여기에 유효성 검사 추가해도 됨 (선택)
+
+    // 로그인 페이지로 이동
+    location.href = 'login.html';
+  });
+});

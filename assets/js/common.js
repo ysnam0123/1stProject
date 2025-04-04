@@ -119,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-
   //  로그아웃 모달창
   const profileIcon = document.querySelector('.profile_icon');
   profileIcon.addEventListener('click', () => {

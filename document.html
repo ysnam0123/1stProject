@@ -19,6 +19,7 @@
     <!-- js -->
     <script src="./assets/js/DocMate.js"></script>
     <script src="./assets/js/document.js"></script>
+    <script defer src="./assets/js/pagemove.js"></script>
     <!-- code share -->
     <link rel="stylesheet" href="./assets/css/codeshare.css" />
     <link
@@ -91,7 +92,7 @@
           class="ms_logo invisible"
         />
         <div class="iconContainer">
-          <div class="iconBox">
+          <div class="iconBox" id="kanbanBoardIcon">
             <!-- 큰 칸반보드 -->
             <svg
               viewBox="0 0 60 60"
@@ -118,7 +119,7 @@
             </svg>
             <p class="btn_text">칸반보드</p>
           </div>
-          <div class="iconBox">
+          <div class="iconBox" id="calendarIcon">
             <!-- 큰 캘린더 -->
             <svg
               viewBox="0 0 60 60"
@@ -147,7 +148,7 @@
               />
             </svg>
           </div>
-          <div class="iconBox">
+          <div class="iconBox" id="documentIcon">
             <!-- 큰 문서 아이콘 -->
             <svg
               viewBox="0 0 60 60"
@@ -208,7 +209,7 @@
               />
             </svg>
           </div>
-          <div class="iconBox">
+          <div class="iconBox" id="helpIcon">
             <!-- 큰 도움 아이콘 -->
             <svg
               viewBox="0 0 60 60"

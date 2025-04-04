@@ -51,4 +51,53 @@ document.addEventListener('DOMContentLoaded', () => {
       darkModeLogo.classList.add('invisible');
     }
   }
+  const moveForward = document.querySelector('.moveForward');
+  moveForward.addEventListener('click', () => {
+    window.location.href = 'beforeLogin.html';
+  });
+
+  const idInput = document.getElementById('inputId');
+  const pwInput = document.getElementById('inputPassword');
+  const loginBtn = document.querySelector('.signinBtn');
+  const rememberMeCheckbox = document.getElementById('rememberMe');
+  const signupBtn = document.querySelector('.signupBtn');
+  signupBtn.addEventListener('click', () => {
+    window.location.href = 'signup.html';
+  });
+  loginBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const enteredId = idInput.value.trim();
+    const enteredPw = pwInput.value.trim();
+
+    // 로컬스토리지에서 유저 정보 가져오기
+    const registeredUsers =
+      JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+    const matchedUser = registeredUsers.find(
+      (user) => user.id === enteredId && user.password === enteredPw
+    );
+
+    if (matchedUser) {
+      alert(`환영합니다, ${matchedUser.name}님!`);
+
+      if (rememberMeCheckbox.checked) {
+        localStorage.setItem('rememberedId', enteredId);
+      } else {
+        localStorage.removeItem('rememberedId');
+      }
+
+      // 로그인 성공 시 다음 화면으로 이동
+      window.location.href = '/DocMate.html';
+    } else {
+      alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+    }
+  });
+
+  // 아이디 저장 체크박스 기능
+  const savedId = localStorage.getItem('rememberedId');
+  if (savedId) {
+    idInput.value = savedId;
+    rememberMeCheckbox.checked = true;
+  }
 });

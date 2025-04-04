@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
   beforeLogin4.classList.add('beforelogin4');
   beforeLogin4.textContent =
     '문서 편집 작업을 통해 당신의 프로젝트를 완성하세요';
-  const loginBtn = document.createElement('loginBtn');
+  const loginBtn = document.createElement('button');
   loginBtn.classList.add('loginBtn');
 
   beforeLogin.appendChild(beforeLogin1);
@@ -150,4 +150,13 @@ document.addEventListener('DOMContentLoaded', () => {
   beforeLogin.appendChild(beforeLogin3);
   beforeLogin.appendChild(beforeLogin4);
   beforeLogin.appendChild(loginBtn);
+
+  const LoginBtn = document.querySelector('.loginBtn'); // ❗️여기!
+
+  LoginBtn.addEventListener('click', () => {
+    window.location.href = 'login.html';
+  });
+  document.querySelector('.signupBtn').addEventListener('click', () => {
+    window.location.href = 'signup.html';
+  });
 });
