@@ -41,6 +41,40 @@
   margin-right: 10px;
 }
 
+.project-list {
+  position: absolute;
+  top: 160px;
+  left: 230px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  display: none;
+  z-index: 1000;
+}
+
+.project-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.project-btn:hover {
+  background: #eef;
+}
+
+.add-project {
+  color: #007bff;
+  font-weight: bold;
+}
+
 #project-name {
   font-weight: bold;
   font-size: 20px;
@@ -62,10 +96,7 @@
 
 .columns {
   display: flex;
-  /* justify-content: space-around; */
   gap: 15px;
-
-  /* max-width: 1200px; */
 }
 
 .column {
@@ -80,7 +111,7 @@
 
 .column-title {
   display: flex;
-  justify-content: space-between; /* 변경 */
+  justify-content: space-between;
   background: none;
   border: none;
   font-size: 18px;
@@ -185,19 +216,29 @@
 
 .confirm-modal form {
   background-color: #fff;
-  padding: 20px;
+  padding: 50px 50px;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
+.confirm-modal .confirm-modal__title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.confirm-modal .confirm-modal__message {
+  font-size: 1rem;
+  color: #888;
+}
+
 .confirm-modal .preview {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .confirm-modal button {
   margin: 0 10px;
-  padding: 8px 15px;
+  padding: 15px 60px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -205,11 +246,13 @@
 }
 
 .confirm-modal #confirm {
-  background-color: #d32f2f;
+  background-color: #e53935;
 }
 
 .confirm-modal #cancel {
-  background-color: #777;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #222;
 }
 
 button[data-delete] i {
@@ -295,4 +338,131 @@ button[data-delete] i {
 
 .test-modal #cancel {
   background-color: #777;
+}
+
+/* 새 프로젝트 만들기 모달창 */
+.new_project_wrapper {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 60px;
+  right: 60px;
+  background-color: var(--light-bg-color);
+}
+
+.newProjectModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1200px;
+  height: 700px;
+  padding: 40px 50px;
+  border: 3px solid black;
+  border-radius: 30px;
+  background-color: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  /* 필요시 다른 요소보다 위에 오도록 */
+}
+
+/* 안내 제목 */
+.npTitle {
+  margin-right: auto;
+  margin: 0 auto 0 140px;
+  font-weight: 500;
+  font-size: 55px;
+  color: var(--light-text-black);
+}
+
+/* 안내 내용 */
+.npComment {
+  margin: 30px auto 0 140px;
+  font-weight: 500;
+  color: var(--light-text-darkGray);
+}
+
+/* input창 */
+.projectInput {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+#projectName {
+  margin-bottom: 30px;
+}
+
+.pjInput {
+  width: 900px;
+  height: 40px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.projectInputLabel {
+  margin-bottom: 10px;
+}
+
+/* 팀원 추가 */
+.addMemberLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.addMemberBtn {
+  margin-left: auto;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* 팀원 목록 */
+.memberBox {
+  width: 900px;
+  padding: 15px;
+  border: 3px solid #222;
+  border-radius: 10px;
+  height: 150px;
+}
+
+/* 생성 취소 버튼 */
+.newProjectBtnBox {
+  position: absolute;
+  right: 50px;
+  bottom: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.newProjectModalBtn {
+  width: 130px;
+  height: 45px;
+  font-size: 19px;
+  border-radius: 10px;
+  padding: 10px 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newProjectModalBtn:hover {
+  opacity: 0.8;
+}
+
+.newProjectModalBtn:active {
+  transform: scale(0.95);
+}
+
+.newProjectOkay {
+  background-color: var(--color-blue);
+  color: var(--white);
 }
