@@ -73,19 +73,20 @@
 .projectItem {
   margin-bottom: 10px;
   padding: 10px;
+  border: 1px solid var(--darkGray);
+  border-radius: 10px;
 }
-.projectItem:nth-child(3n) .projectDocs {
+/* .projectItem:nth-child(3n) .projectDocs {
   background-color: rgba(20, 77, 255, 0.2);
 }
 
 .projectItem:nth-child(3n + 1) .projectDocs {
   background-color: rgba(150, 150, 150, 0.2); /* 중간 회색 */
-}
+/* } */
 
-.projectItem:nth-child(3n + 2) .projectDocs {
-  background-color: rgba(220, 220, 220, 0.2); /* 밝은 회색 */
-}
-
+/* .projectItem:nth-child(3n + 2) .projectDocs {
+  background-color: rgba(220, 220, 220, 0.2); 밝은 회색 */
+/* } */
 .projectHeader {
   display: flex;
   align-items: center;
@@ -93,31 +94,44 @@
   font-weight: bold;
   position: relative;
 }
+.projectHeader::before {
+  content: "";
+  position: absolute;
+  top: 32px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--darkGray);
+  opacity: 0;
+}
+.projectItem.open .projectHeader::before {
+  opacity: 1;
+}
 .projectName {
   width: 120px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.projectItem.open .projectHeader .projectName {
+  color: var(--blue1);
+}
 .projectIcon {
   margin-right: 12px;
   width: 20px;
   height: 20px;
-  background-image: url('../images/folder_icon.svg'); /* SVG 경로 */
+  background-image: url("../images/folder_icon.svg"); /* SVG 경로 */
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
   display: inline-block;
   text-indent: -9999px; /* 내부 텍스트 숨기기 */
 }
+.projectItem.open .projectHeader .projectIcon {
+  color: var(--blue1);
+}
 .projectDocs {
-  margin: 8px 0 10px 30px;
   display: none;
-  padding: 10px 0 10px 10px;
-  border-left: 2px solid var(--rightGray);
-  border-bottom: 1px solid var(--rightGray);
-  transition: all 0.3s ease;
-  border-radius: 0 0 10px 10px;
+  padding: 15px;
 }
 .projectMenu {
   display: flex;
@@ -154,10 +168,11 @@
   color: var(--blue2);
 }
 
-.docTitle {
+.docList .docTitle {
   cursor: pointer;
-  padding: 5px;
-  margin-left: 15px;
+  padding: 8px;
+  /* margin-left: 15px; */
+  text-align: center;
   position: relative;
   overflow: hidden;
   white-space: nowrap;
@@ -165,12 +180,14 @@
   transition: color 0.3s;
   max-width: 150px;
 }
-.docTitle:hover {
+.docList .docTitle:hover {
   color: var(--blue1);
   font-weight: 700;
+  background-color: #dbdbdb;
+  border-radius: 5px;
 }
-.docTitle::before {
-  content: '';
+.docList .docTitle::before {
+  content: "";
   width: 2px;
   height: 100%;
   position: absolute;
@@ -179,34 +196,35 @@
   background-color: var(--rightGray);
   transition: background-color 0.5s ease;
 }
-.docTitle:hover::before {
+.docList .docTitle:hover::before {
   background-color: var(--blue1);
 }
 /* open클래스 추가되면 보이도록 */
+
 .projectItem.open .projectDocs {
   display: block;
 }
 .addDocBtn {
-  display: none;
+  display: block;
   width: 14px;
   height: 14px;
   border: none;
-  background-image: url('../images/plus_icon.svg');
+  background-image: url("../images/plus_icon.svg");
   background-repeat: no-repeat;
   background-color: transparent;
   background-position: center;
   padding: 10px;
   position: absolute;
-  right: 0;
+  right: 2px;
   top: 0;
   cursor: pointer;
 }
-.projectHeader {
+/* .projectHeader {
   position: relative;
-}
-.projectHeader:hover .addDocBtn {
+} */
+/* .projectHeader:hover .addDocBtn {
   display: block;
-}
+} */
 
 /* newProject */
 .subSidebar .newProject {
@@ -230,7 +248,7 @@
 .subSidebar .newProject .plus {
   width: 11px;
   height: 11px;
-  background-image: url('../images/plus_icon.svg');
+  background-image: url("../images/plus_icon.svg");
   background-repeat: no-repeat;
   text-indent: -99999999px;
 }
@@ -458,7 +476,7 @@
 .editor .docToolbar .docTool.formatUnderLine::before,
 .editor .docToolbar .docTool.formatAlignRight::before,
 .editor .docToolbar .docTool.formatListNumber::before {
-  content: '';
+  content: "";
   position: absolute;
   right: -2px;
   top: 50%;
@@ -493,7 +511,7 @@
   overflow: auto;
 }
 .editor .docEditContent .docEditLayout .docEditPage h1 {
-  font-family: 'Pretendard Variable';
+  font-family: "Pretendard Variable";
 }
 .editor .docEditContent .docEditLayout .docEditPage .bold {
   font-weight: bold;
@@ -535,21 +553,8 @@
 }
 /* codeShareView */
 .codeShareView.active {
-  display: grid;
-}
-.codeShareView {
-  grid-template-columns: 3fr 1fr;
-  grid-template-areas:
-    'docTitle docTitle'
-    'codeTab commentSection'
-    'codeResult commentSection';
-  grid-template-rows: auto auto 1fr;
-}
-.codeShareView .docTitleBox {
-  grid-area: docTitle;
-}
-.codeShareView .codeTab {
-  grid-area: codeTab;
+  width: 100%;
+  height: 100vh;
 }
 .codeShareView .codeTab ul {
   display: flex;
@@ -587,61 +592,46 @@
 }
 .codeShareView .codeResult {
   flex-grow: 1;
-  grid-area: codeResult;
   border: 1px solid var(--darkGray);
   padding: 10px;
 }
-.codeShareView .commentSection {
-  grid-area: commentSection;
-  height: 90vh;
+/* 코드공유페이지 css추가 */
+#iframe-container {
+  padding-top: 20px;
+  flex: 1;
+}
+#output-frame {
   padding: 10px;
-}
-.codeShareView .commentSection h4 {
-  margin-bottom: 10px;
-}
-.codeShareView .commentSection .commentWrapper {
-  background-color: var(--blue4);
-  border-radius: 10px;
   width: 100%;
-  height: 98%;
+  height: 93%;
+  border-top: 1px solid var(--darkGray);
+  border-radius: 10px;
+}
+
+/* 문서쪽 드롭다운 추가 css */
+.docMenu {
   position: relative;
 }
-.codeShareView .commentSection .commentWrapper .addCommentBox {
-  background-color: var(--bg-color);
+.editor .docDropdown {
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.codeShareView .commentSection .commentWrapper .addCommentBox .addCommentTitle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 90%;
-  margin: 0 auto;
-}
-.codeShareView
-  .commentSection
-  .commentWrapper
-  .addCommentBox
-  .addCommentTitle
-  .addCommentBtn {
-  background-color: var(--blue1);
-  color: var(--bg-color);
-  outline: none;
-  border: none;
-  padding: 5px 1rem;
+  width: 100px;
+  border: 1px solid var(--border);
   border-radius: 10px;
+  background-color: var(--bg-color);
+  top: 22px;
+  left: 0;
+  z-index: 5;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: none;
 }
-.codeShareView .commentSection .commentWrapper .addCommentBox .commentInput {
-  width: 90%;
-  height: 50px;
-  margin: 10px auto;
-  border: 1px solid var(--darkGray);
-  border-radius: 10px;
+.editor .docDropdown.active {
   display: block;
+}
+.editor .docDropdown li {
+  padding: 15px 10px;
+  text-align: center;
+}
+.editor .docDropdown li:hover {
+  background-color: #e9e9e9;
+  color: var(--blue2);
 }
