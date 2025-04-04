@@ -1,8 +1,8 @@
 const today = new Date();
 let currentYear = today.getFullYear();
 let currentMonth = today.getMonth();
-const leftBtn = document.getElementById('leftBtn');
-const rightBtn = document.getElementById('rightBtn');
+const leftBtn = document.getElementById('calendarLeftBtn');
+const rightBtn = document.getElementById('calendarRightBtn');
 const cancelBtn = document.querySelector('.cancelBtn');
 const startday = document.getElementById("startday");
 const endday = document.getElementById("endday");

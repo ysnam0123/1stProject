@@ -135,7 +135,7 @@ body {
 }
 /* container */
 .container {
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
   width: 100%;
   background-color: var(--light-bg-color);
   color: var(--light-text-black);
@@ -435,6 +435,4 @@ body {
 .newProjectOkay {
   background-color: var(--color-blue);
   color: var(--white);
-}
-.newProjectCancel {
 }

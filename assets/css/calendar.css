@@ -10,12 +10,12 @@
   'opsz' 24,
 }
 
-.container{
+#calendar{
   position: relative;
   display: flex;
   justify-content: center;
-  padding-top: 50px;
-  height: 100vh;
+  padding-top: 30px;
+  margin: 0 auto;
 }
 .calendarContainer{
   min-width: 1126px;
@@ -35,8 +35,8 @@
   font-size: 40px;
   font-weight: bold;
 }
-#calendarController #leftBtn,
-#calendarController #rightBtn{
+#calendarController #calendarLeftBtn,
+#calendarController #calendarRightBtn{
   cursor: pointer;
 }
 .calendarWrapper{
