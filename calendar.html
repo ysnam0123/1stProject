@@ -6,10 +6,14 @@
     <link rel="stylesheet" href="./assets/css/reset.css" />
     <link rel="stylesheet" href="./assets/css/root.css" />
     <link rel="stylesheet" href="./assets/css/DocMate.css" />
-    <link rel="stylesheet" type="text/css" href="../1stProject/assets/css/calendar.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/calendar.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <link rel="website icon" type="svg" href="./assets/images/ms_logo.svg" />
     <script defer type="module" src="./assets/js/calendar.js"></script>
+    <script defer src="./assets/js/DocMate.js"></script>
     <title>Doc Mate</title>
   </head>
   <body>
@@ -342,33 +346,23 @@
         <div class="modal hide">
           <div class="modalWrapper">
             <div id="warning"></div>
-            <input id="title" type="text" placeholder="일정을 입력 하세요">
+            <input id="title" type="text" placeholder="일정을 입력 하세요" />
             <fieldset id="dateInput">
               <label for="startday">
-                <span class="material-symbols-outlined">
-                  calendar_month
-                </span>
+                <span class="material-symbols-outlined"> calendar_month </span>
                 시작 날짜
               </label>
-              <input type="date" id="startday">
+              <input type="date" id="startday" />
               <label for="endday">
-                <span class="material-symbols-outlined">
-                  calendar_month
-                </span>
+                <span class="material-symbols-outlined"> calendar_month </span>
                 종료 날짜
               </label>
-              <input type="date" id="endday">
+              <input type="date" id="endday" />
               <select id="colorInput">
                 <option>색상</option>
-                <option value="#E10101">
-                  빨강
-                </option>
-                <option value="#E05B07">
-                  주황
-                </option>
-                <option value="#65E007">
-                  초록
-                </option>
+                <option value="#E10101">빨강</option>
+                <option value="#E05B07">주황</option>
+                <option value="#65E007">초록</option>
               </select>
             </fieldset>
             <textarea cols="30" rows="5"></textarea>
@@ -381,5 +375,4 @@
       </div>
     </div>
   </body>
-  <script defer src="./assets/js/DocMate.js"></script>
 </html>
