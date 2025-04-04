@@ -6,6 +6,7 @@
   --box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   /* 라이트,다크모드 토글 색상 */
   --toggleBar-color: #363636;
+  --calender-emptyItem: #222222;
 }
 
 /*  라이트모드 */
@@ -15,6 +16,7 @@
   --text-darkGray: #737373;
   --bg-color: #ffffff;
   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --calender-emptyItem : rgb(248,248,248)
 
   /* 라이트,다크모드 토글 색상 */
   --toggleBar-color: #ffffff;
