@@ -74,6 +74,18 @@
   margin-bottom: 10px;
   padding: 10px;
 }
+.projectItem:nth-child(3n) .projectDocs {
+  background-color: rgba(20, 77, 255, 0.2);
+}
+
+.projectItem:nth-child(3n + 1) .projectDocs {
+  background-color: rgba(150, 150, 150, 0.2); /* 중간 회색 */
+}
+
+.projectItem:nth-child(3n + 2) .projectDocs {
+  background-color: rgba(220, 220, 220, 0.2); /* 밝은 회색 */
+}
+
 .projectHeader {
   display: flex;
   align-items: center;
@@ -91,7 +103,7 @@
   margin-right: 12px;
   width: 20px;
   height: 20px;
-  background-image: url("../images/folder_icon.svg"); /* SVG 경로 */
+  background-image: url('../images/folder_icon.svg'); /* SVG 경로 */
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -99,9 +111,13 @@
   text-indent: -9999px; /* 내부 텍스트 숨기기 */
 }
 .projectDocs {
-  margin: 10px 0 10px 11px;
+  margin: 8px 0 10px 30px;
   display: none;
+  padding: 10px 0 10px 10px;
   border-left: 2px solid var(--rightGray);
+  border-bottom: 1px solid var(--rightGray);
+  transition: all 0.3s ease;
+  border-radius: 0 0 10px 10px;
 }
 .projectMenu {
   display: flex;
@@ -154,7 +170,7 @@
   font-weight: 700;
 }
 .docTitle::before {
-  content: "";
+  content: '';
   width: 2px;
   height: 100%;
   position: absolute;
@@ -175,7 +191,7 @@
   width: 14px;
   height: 14px;
   border: none;
-  background-image: url("../images/plus_icon.svg");
+  background-image: url('../images/plus_icon.svg');
   background-repeat: no-repeat;
   background-color: transparent;
   background-position: center;
@@ -214,7 +230,7 @@
 .subSidebar .newProject .plus {
   width: 11px;
   height: 11px;
-  background-image: url("../images/plus_icon.svg");
+  background-image: url('../images/plus_icon.svg');
   background-repeat: no-repeat;
   text-indent: -99999999px;
 }
@@ -442,7 +458,7 @@
 .editor .docToolbar .docTool.formatUnderLine::before,
 .editor .docToolbar .docTool.formatAlignRight::before,
 .editor .docToolbar .docTool.formatListNumber::before {
-  content: "";
+  content: '';
   position: absolute;
   right: -2px;
   top: 50%;
@@ -477,7 +493,7 @@
   overflow: auto;
 }
 .editor .docEditContent .docEditLayout .docEditPage h1 {
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
 }
 .editor .docEditContent .docEditLayout .docEditPage .bold {
   font-weight: bold;
@@ -524,9 +540,9 @@
 .codeShareView {
   grid-template-columns: 3fr 1fr;
   grid-template-areas:
-    "docTitle docTitle"
-    "codeTab commentSection"
-    "codeResult commentSection";
+    'docTitle docTitle'
+    'codeTab commentSection'
+    'codeResult commentSection';
   grid-template-rows: auto auto 1fr;
 }
 .codeShareView .docTitleBox {
