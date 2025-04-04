@@ -67,27 +67,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
     projectItem.innerHTML = `
     <div class="projectHeader">
-      <span class="projectIcon">📁</span>
+      <span class="projectIcon"></span>
       <span class="projectName">${projectData.title}</span>
-      <button class="addDocBtn">+</button>
+      <button class="addDocBtn"></button>
       <div class="docDropdown">
         <div class="docOption" data-type="default">기본 문서</div>
         <div class="docOption" data-type="code">코드 문서</div>
+      </div>
+      <!-- 추가된 메뉴 아이콘 -->
+      <div class="projectMenu">
+        <span class="material-symbols-outlined">more_horiz</span>
+      </div>
+      <div class="projectMenuDropdown">
+        <div class="menuOption" data-action="edit">수정</div>
+        <div class="menuOption" data-action="delete">삭제</div>
       </div>
     </div>
     <div class="projectDocs">
       <div class="docList"></div>
     </div>
+        
   `;
 
     const addDocBtn = projectItem.querySelector(".addDocBtn");
     const docDropdown = projectItem.querySelector(".docDropdown");
+    const projectMenu = projectItem.querySelector(".projectMenu");
+    const projectMenuDropdown = projectItem.querySelector(
+      ".projectMenuDropdown"
+    );
 
     // addDocBtn 클릭 시 해당 프로젝트의 드롭다운 메뉴 활성화
     addDocBtn.addEventListener("click", (event) => {
       event.stopPropagation(); // 다른 클릭 이벤트 영향 방지
       docDropdown.classList.toggle("active");
     });
+
+    // 프로젝트 메뉴 클릭 시 드롭다운 메뉴 열기
+    projectMenu.addEventListener("click", (event) => {
+      event.stopPropagation();
+      projectMenuDropdown.classList.toggle("active");
+    });
+
+    // 드롭 다운 메뉴의 수정 및 삭제 클릭 이벤트 처리
 
     const projectHeader = projectItem.querySelector(".projectHeader");
 
@@ -113,11 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
         docDropdown.classList.remove("active");
       });
     });
-
-    // const docList = projectItem.querySelector(".docList");
-
-    // 하위 문서 추가 버튼 이벤트 추가
-    // const addDocBtn = projectItem.querySelector(".addDocBtn");
 
     // 하위 문서 불러오기
     function loadSubDocs(project) {
@@ -280,42 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // addDocBtn 클릭 시 드롭 다운 메뉴
-  // const addDocBtns = document.querySelectorAll(".addDocBtn");
-
-  // addDocBtns.forEach((btn) => {
-  //   btn.addEventListener("click", (event) => {
-  //     event.stopPropagation(); // 다른 클릭 이벤트 영향 방지
-
-  //     const projectItem = event.target.closest(".projectItem");
-  //     const dropdown = projectItem.querySelector(".docDropdown");
-  //     if (dropdown) {
-  //       dropdown.classList.toggle("active");
-  //     }
-  //   });
-  // });
-
-  // 드롭다운 아이템 클릭 시 새 문서 생성
-  // const dropdownItems = document.querySelectorAll(".docOption");
-  // dropdownItems.forEach((item) => {
-  //   item.addEventListener("click", (event) => {
-  //     event.stopPropagation();
-
-  //     const docType = event.target.dataset.type;
-  //     const projectItem = event.target.closest(".projectItem");
-  //     const projectId = projectItem.dataset.projectId;
-
-  //     createNewDocument(docType, projectId);
-
-  //     // 드롭다운 메뉴 닫기
-  //     const dropdown = projectItem.querySelector(".docDropdown");
-  //     if (dropdown) {
-  //       dropdown.classList.remove("active");
-  //     }
-  //   });
-  // });
-
-  // 문서 생성 시 type은 localStorage에 저장장
+  // 문서 생성 시 type은 localStorage에 저장
   function createNewDocument(type, projectId) {
     const title = type === "default" ? "새 기본 문서" : "새 코드 문서";
     fetch("https://kdt-api.fe.dev-cos.com/documents", {
@@ -369,23 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // document.execCommand("bold"); // 볼드 처리
-  // document.execCommand("italic"); // 기울임 처리
-  // document.execCommand("underline"); // 밑줄 처리
-  // document.execCommand("justifyLeft"); // 왼쪽 정렬
-  // document.execCommand("insertOrderedList"); // 숫자 리스트 추가
-
-  // function updateButtonState() {
-  //   document.querySelectorAll(".docToolbar button").forEach((button) => {
-  //     const command = button.dataset.command;
-  //     if (document.queryCommandState(command)) {
-  //       button.classList.add("active");
-  //     } else {
-  //       button.classList.remove("active");
-  //     }
-  //   });
-  // }
-
   function applyStyle(button) {
     const selection = window.getSelection();
     if (!selection.rangeCount) return; // 선택한 텍스트가 없으면 종료
@@ -396,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let newNode;
 
-    // 🎨 스타일 적용할 태그 결정
+    // 스타일 적용할 태그 결정
     if (button.classList.contains("formatBold")) {
       newNode = document.createElement("span");
       newNode.style.fontWeight = "bold";

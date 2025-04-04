@@ -3,6 +3,21 @@
    License: none (public domain)
 */
 
+/* 추가 */
+@charset "utf-8";
+
+/* webFont Cafe24Meongi-B-v1.0 */
+@font-face {
+  font-family: "Cafe24Meongi-B-v1.0";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/Cafe24Meongi-B-v1.0.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* webFont 'Pretendard Variable' */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css");
+
 html,
 body,
 div,
@@ -103,9 +118,13 @@ section {
 }
 body {
   line-height: 1;
+  /* 추가 */
+  font-family: "Pretendard Variable", Pretendard;
+  color: var(--text-color);
 }
 ol,
-ul {
+ul,
+li {
   list-style: none;
 }
 blockquote,
@@ -116,10 +135,57 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+/* 추가 */
+html {
+  font-size: 16px;
+}
+input,
+select,
+textarea,
+button {
+  font-size: 0.88rem; /* 14px */
+}
+img,
+fieldset {
+  border: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 500;
+}
+h1 {
+  font-size: var(--h1);
+  font-family: "Cafe24Meongi-B-v1.0";
+}
+h2 {
+  font-size: var(--h2);
+}
+h3 {
+  font-size: var(--h3);
+}
+h4 {
+  font-size: var(--h4);
+}
+h5 {
+  font-size: var(--h5);
+}
+h6 {
+  font-size: var(--h6);
 }
