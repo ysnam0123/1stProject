@@ -135,7 +135,7 @@ body {
 }
 /* container */
 .container {
-  border-radius: 10px;
+  border-radius: 10px 0 0 10px;
   width: 100%;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -539,85 +539,4 @@ body {
 .newProjectOkay {
   background-color: var(--color-blue);
   color: var(--white);
-}
-
-/* 멤버 추가 모달창 */
-.addMemberModal {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border: 1px solid black;
-  border-radius: 20px;
-  width: 250px;
-  height: 300px;
-  padding: 10px 5px;
-  position: absolute;
-  right: 120px;
-  bottom: -5px;
-  background-color: var(--bg-color);
-}
-.findMemberBox {
-  padding-bottom: 5px;
-  display: flex;
-  align-items: center;
-  border-bottom: solid 2px var(--color-rightGray);
-  width: 100%;
-}
-
-.findMemberInput {
-  padding: 5px 10px;
-  height: 30px;
-  width: 150px;
-  position: relative;
-  border-radius: 5px;
-  font-size: 14px;
-  border: none;
-  color: var(--text-color);
-  background-color: var(--bg-color);
-}
-.findMemberInput:focus {
-  border: 0;
-  outline: none;
-}
-.findMember {
-  width: 50px;
-  border-radius: 5px;
-  height: 35px;
-  background-color: var(--color-blue);
-  color: var(--white);
-
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.1s ease;
-}
-
-.findMember:hover {
-  opacity: 0.8;
-}
-.findMember:active {
-  transform: scale(0.95);
-}
-.memberLiBox {
-  width: 100%;
-  height: 100%;
-}
-.memberLiUl {
-  width: 164px;
-  position: absolute;
-  display: none;
-}
-.memberLiUlLi {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  padding: 5px 10px;
-  height: 40px;
-  border: 2px solid black;
-  background-color: blue;
-  color: white;
-  cursor: pointer;
-  border-radius: 3px;
-}
-.memberLiUlLi:hover {
-  opacity: 0.8;
 }
