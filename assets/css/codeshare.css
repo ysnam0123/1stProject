@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
 
-  width: 830px;
+  width: 1200px;
 }
 .docTitleBox {
   display: flex;
@@ -40,8 +40,27 @@
 }
 .editor-container.active {
   display: block;
+  border: solid 1px var(--border);
 }
-
+.executeCode {
+  margin-left: auto;
+  margin-right: 15px;
+  background-color: var(--blue1);
+  width: 80px;
+  height: 50px;
+  border-radius: 5px;
+  color: var(--white);
+  font-weight: 700;
+  padding: 10px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.executeCode:hover {
+  opacity: 0.8;
+}
+.executeCode:active {
+  transform: scale(0.95);
+}
 .commentSection {
   width: 320px;
   padding: 10px 15px;
