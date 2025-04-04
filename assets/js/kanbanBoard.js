@@ -23,12 +23,14 @@ const handleDragover = (event) => {
     // target is another
     const { top, height } = target.getBoundingClientRect();
     const distance = top + height / 2;
+
     if (event.clientY < distance) {
       target.before(draggedTask);
     } else {
       target.after(draggedTask);
     }
   }
+
 };
 testModal
   .querySelector("#cancel")
@@ -36,6 +38,7 @@ testModal
 const enableTaskEditing = (task) => {
   task.addEventListener("dblclick", handleEdit);
 };
+
 const handleDrop = (event) => {
   event.preventDefault();
 };
