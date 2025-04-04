@@ -4,7 +4,7 @@
   gap: 6px;
 }
 .subSidebar {
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   max-width: 280px;
   padding: 20px;
   border-radius: 0 20px 20px 0;
@@ -50,16 +50,19 @@
 /* projectListBox */
 .subSidebar .projectListBox {
   margin-top: 20px;
+  overflow-y: auto;
+  overflow-x: visible;
+  height: 82vh;
 }
 /* dropdown으로 문서옵션 선택 */
 .projectListBox .docDropdown {
   position: absolute;
-  left: 85%;
-  top: 19px;
-  width: 180px;
+  left: calc(100% - 130px);
+  top: 20px;
+  width: 130px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   z-index: 5;
   border: 1px solid var(--darkGray);
   display: none;
@@ -67,6 +70,76 @@
 .projectListBox .docDropdown.active {
   display: block;
 }
+.projectItem {
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.projectItem:nth-child(3n) .projectDocs {
+  background-color: rgba(20, 77, 255, 0.2);
+}
+
+.projectItem:nth-child(3n + 1) .projectDocs {
+  background-color: rgba(150, 150, 150, 0.2); /* 중간 회색 */
+}
+
+.projectItem:nth-child(3n + 2) .projectDocs {
+  background-color: rgba(220, 220, 220, 0.2); /* 밝은 회색 */
+}
+
+.projectHeader {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+}
+.projectName {
+  width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.projectIcon {
+  margin-right: 12px;
+  width: 20px;
+  height: 20px;
+  background-image: url('../images/folder_icon.svg'); /* SVG 경로 */
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: inline-block;
+  text-indent: -9999px; /* 내부 텍스트 숨기기 */
+}
+.projectDocs {
+  margin: 8px 0 10px 30px;
+  display: none;
+  padding: 10px 0 10px 10px;
+  border-left: 2px solid var(--rightGray);
+  border-bottom: 1px solid var(--rightGray);
+  transition: all 0.3s ease;
+  border-radius: 0 0 10px 10px;
+}
+.projectMenu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.projectMenuDropdown {
+  position: absolute;
+  left: calc(100% - 130px);
+  top: 20px;
+  width: 130px;
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+  border: 1px solid var(--darkGray);
+  display: none;
+}
+.projectMenuDropdown.active {
+  display: block;
+}
+.projectMenuDropdown .menuOption,
 .projectListBox .docDropdown .docOption {
   padding: 10px 15px;
   display: flex;
@@ -75,47 +148,13 @@
   cursor: pointer;
   transition: color 0.2s, background-color 0.2s;
 }
-/* .projectListBox .docDropdown .docOption span.material-symbols-outlined {
-  transition: color 0.1s;
-} */
+.projectMenuDropdown .menuOption:hover,
 .projectListBox .docDropdown .docOption:hover {
   background: #f0f0f0;
   color: var(--blue2);
 }
-.projectFolder {
-  margin-bottom: 10px;
-  padding: 10px;
-}
-.folderHeader {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-weight: bold;
-  position: relative;
-}
-.folderName {
-  width: 120px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.folderIcon {
-  margin-right: 12px;
-  width: 20px;
-  height: 20px;
-  background-image: url("../images/folder_icon.svg"); /* SVG 경로 */
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  display: inline-block;
-  text-indent: -9999px; /* 내부 텍스트 숨기기 */
-}
-.documentList {
-  margin: 10px 0 10px 11px;
-  display: none;
-  border-left: 2px solid var(--rightGray);
-}
-.documentItem {
+
+.docTitle {
   cursor: pointer;
   padding: 5px;
   margin-left: 15px;
@@ -126,46 +165,25 @@
   transition: color 0.3s;
   max-width: 150px;
 }
-.documentItem::before {
-  content: "";
+.docTitle:hover {
+  color: var(--blue1);
+  font-weight: 700;
+}
+.docTitle::before {
+  content: '';
   width: 2px;
   height: 100%;
   position: absolute;
   left: -17px;
   top: 0;
   background-color: var(--rightGray);
-  opacity: 0;
-  transition: opacity 0.5s ease, background-color 0.5s ease;
+  transition: background-color 0.5s ease;
 }
-.documentItem:hover {
-  color: var(--blue1);
-  font-weight: 700;
-}
-.documentItem:hover::before {
-  opacity: 1;
+.docTitle:hover::before {
   background-color: var(--blue1);
 }
-
-/* .downIcon {
-  width: 16px;
-  height: 10px;
-  background-image: url("../images/down_icon.svg");
-  background-repeat: no-repeat;
-  transition: transform 0.3s ease; /* 회전 애니메이션 */
-/* position: absolute;
-  right: 0;
-} */
-
-/* .downIcon.open {
-  transform: rotate(180deg); /* 열린 상태에서는 위쪽(▲) 방향 */
-/* } */
-/* 아코디언 추가 부분 */
-.docList {
-  display: none;
-  padding-left: 10px;
-}
 /* open클래스 추가되면 보이도록 */
-.projectItem.open .docList {
+.projectItem.open .projectDocs {
   display: block;
 }
 .addDocBtn {
@@ -173,7 +191,7 @@
   width: 14px;
   height: 14px;
   border: none;
-  background-image: url("../images/plus_icon.svg");
+  background-image: url('../images/plus_icon.svg');
   background-repeat: no-repeat;
   background-color: transparent;
   background-position: center;
@@ -212,7 +230,7 @@
 .subSidebar .newProject .plus {
   width: 11px;
   height: 11px;
-  background-image: url("../images/plus_icon.svg");
+  background-image: url('../images/plus_icon.svg');
   background-repeat: no-repeat;
   text-indent: -99999999px;
 }
@@ -223,6 +241,12 @@
 /* newDocModal */
 .container {
   position: relative;
+  display: block;
+}
+/* 수정추가 */
+.headerIconBox {
+  /* position: static; */
+  /* justify-content: flex-end; */
 }
 .container .newDocModal {
   width: 100%;
@@ -240,7 +264,7 @@
   display: block;
 }
 .container .newDocModal .docModalWrapper {
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   padding: 30px 20px;
   border-radius: 10px;
   width: 550px;
@@ -332,7 +356,7 @@
 }
 #projectModalAddMember {
   border: 1px solid var(--rightGray);
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   color: var(--rightGray);
   outline: none;
   padding: 10px 15px;
@@ -344,7 +368,7 @@
 }
 #projectModalAddMember:hover {
   background-color: var(--text-color);
-  color: var(--light-bg-color);
+  color: var(--bg-color);
 }
 #projectMember {
   margin-top: 5px;
@@ -358,7 +382,7 @@
   background-color: var(--blue1);
   outline: none;
   border: none;
-  color: var(--light-bg-color);
+  color: var(--bg-color);
   font-weight: 600;
   padding: 13px;
   width: 140px;
@@ -372,10 +396,12 @@
 
 /* .container .editor */
 .container .notYet {
-  display: block;
+  display: flex;
+  height: 100vh;
 }
 .container .notYet h2 {
   text-align: center;
+  margin: auto;
 }
 .container.editmode .notYet {
   display: none;
@@ -432,7 +458,7 @@
 .editor .docToolbar .docTool.formatUnderLine::before,
 .editor .docToolbar .docTool.formatAlignRight::before,
 .editor .docToolbar .docTool.formatListNumber::before {
-  content: "";
+  content: '';
   position: absolute;
   right: -2px;
   top: 50%;
@@ -451,7 +477,7 @@
   overflow: auto;
 }
 .editor .docEditContent .docEditLayout {
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   border-radius: 10px;
   width: 99%;
   height: 97%;
@@ -467,7 +493,7 @@
   overflow: auto;
 }
 .editor .docEditContent .docEditLayout .docEditPage h1 {
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
 }
 .editor .docEditContent .docEditLayout .docEditPage .bold {
   font-weight: bold;
@@ -514,9 +540,9 @@
 .codeShareView {
   grid-template-columns: 3fr 1fr;
   grid-template-areas:
-    "docTitle docTitle"
-    "codeTab commentSection"
-    "codeResult commentSection";
+    'docTitle docTitle'
+    'codeTab commentSection'
+    'codeResult commentSection';
   grid-template-rows: auto auto 1fr;
 }
 .codeShareView .docTitleBox {
@@ -581,7 +607,7 @@
   position: relative;
 }
 .codeShareView .commentSection .commentWrapper .addCommentBox {
-  background-color: var(--light-bg-color);
+  background-color: var(--bg-color);
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -605,7 +631,7 @@
   .addCommentTitle
   .addCommentBtn {
   background-color: var(--blue1);
-  color: var(--light-bg-color);
+  color: var(--bg-color);
   outline: none;
   border: none;
   padding: 5px 1rem;
