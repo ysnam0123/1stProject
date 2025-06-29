@@ -21,6 +21,20 @@
 
 <br />
 
+## 🚶🚶‍♀️ 팀원 소개 
+
+| 남윤서 | 김은지 | 송지은 | 유강민 | 이준수 | 이준호 |
+|:--:|:--:|:--:|:--:|:--:|:--:|
+| <img width="130px" src="https://avatars.githubusercontent.com/u/158164219?v=4" /> | <img width="130px" src="https://github.com/user-attachments/assets/4f803409-8979-454d-97f3-df8171225aaf" /> | <img width="130px" src="https://github.com/user-attachments/assets/1e8272aa-8254-40b3-bd30-a37bbf1db577" /> | <img width="130px" src="https://avatars.githubusercontent.com/u/145523906?v=4" /> | <img width="130px" src="https://avatars.githubusercontent.com/u/75468984?v=4" /> | <img width="130px" src="https://github.com/user-attachments/assets/ab18c001-6f75-4c10-80e5-2436544fb543" /> |
+| [@nam yoonseo](https://github.com/ysnam0123) | [@keemeunji](https://github.com/keemeunji) | [@jieun22222](https://github.com/jieun22222) | [@dkawoindsa](https://github.com/dkawoindsa) | [@dlakrp123](https://github.com/dlakrp123) | [](https://github.com/) |
+
+
+<br>
+
+
+
+
+
 ## 📭 Git Convention
 
 ### Git Flow
@@ -97,13 +111,3 @@ develop 브랜치로 merge
 ├── 📜 index.html         # 메인 페이지 (SPA 진입점)
 └── 📜 README.md          # 프로젝트 설명 파일
 
-
-```
-
-##  🚶🚶‍♀️ Team Members
-| [김은지](https://github.com/keemeunji) | [()](https://github.com/) |
-| :--------: | :--------: |
-| <img src="https://github.com/keemeunji.png" width="200px"/> | <img src="https://github.com/.png" width="200px"/> |
-| 칸반보드 담당 | 문서 담당 |
-
-<br />
